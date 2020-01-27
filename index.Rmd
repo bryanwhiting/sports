@@ -1,15 +1,189 @@
 ---
-title: "My Distill Demo"
+title: "NBA Predictions"
 description: |
-  Welcome to the website. I hope you enjoy it!
-site: distill::distill_website
+  Comparing my models against 538 and some super-simple benchmarks
+site: 
+  distill::distill_website:
+    toc: false
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-
+install.load::install_load('dplyr', 'tidyverse', 'ggplot2', 'leaflet', 'kableExtra', 'flexdashboard', 'shiny', 'magrittr', 'lubridate', 'formattable')
 # Learn more about creating websites with Distill at:
 # https://rstudio.github.io/distill/website.html
 
+css = "background-color: #666; color: #fff;"
+```
+
+Each day I challenge [FiveThirtyEight's Raptor](https://projects.fivethirtyeight.com/2020-nba-predictions/games/) predictions[^1].
+
+[^1]: FiveThirtyEight's predictions are updated daily and can be downloaded here: https://projects.fivethirtyeight.com/nba-model/nba_elo_latest.csv.
+
+
+## Today and Tomorrow's Games
+```{r}
+
+df = read_csv('../sports-predictions/output/all_scores.csv') %>%
+  # ignore datetime - time zones mess things up anyway
+  mutate(date = as_date(datetime)) %>%
+  select(-datetime) %>%
+  select(date, everything())
+
+colnames(df) %<>% gsub('[.]*\\_prob1', '', .)
+colnames(df) %<>% gsub('result\\_[.]*', '', .)
+
+# Yesterday's Games
+df_yesterday = df %>% 
+  filter(between(date, Sys.Date() -3, Sys.Date() - 1)) %>%
+  select(-starts_with('pg'), -season_week)
+
+# Today's games
+df_today = df %>% 
+  filter(between(date, Sys.Date(), Sys.Date() + 1)) %>%
+  select(-result, -starts_with('pg'), -season_week)
+  
+
+# Count number of games today for row packing
+n_today = sum(df_today$date == Sys.Date())
+
+date_today = format(Sys.Date(), '%a, %b %d')
+date_tom = format(Sys.Date() + 1, '%a, %b %d')
+
+# Format the prediction columns with formattabl
+p_cols = df_today %>% select(-team1, -team2, -date)
+
+# TODO: https://www.displayr.com/formattable/
+color_pred = function(x){
+  x = formattable::percent(x, digits=0)
+  x = ifelse(x > 0.5,
+         color_tile('transparent', 'green')(x * c(x > 0.5)),
+         color_tile('red', 'transparent')(x * c(x < 0.5)))
+  x
+}
+
+# https://stackoverflow.com/a/54748839/2138773
+df_today %>%
+  select(-date) %>%
+  mutate(
+    game = paste(team2, '@', team1),
+    elo = color_pred(elo),
+    `carm-elo` = color_pred(`carm-elo`),
+    raptor = color_pred(raptor),
+    v01 = color_pred(v01),
+    v02 = color_pred(v02),
+  ) %>%
+  select(-team1, -team2) %>%
+  select(game, everything()) %>%
+  kable('html', escape=F) %>%
+  kable_styling(c('striped', 'hover'), full_width = F) %>%
+  pack_rows(date_today, 1, n_today, label_row_css = css) %>%
+  pack_rows(date_tom, n_today+1, nrow(df_today), label_row_css = css) 
+  
+```
+
+## Last Three Day's Predictions vs. Results
+```{r}
+# TODO: https://www.displayr.com/formattable/
+# Get the green check for correct predictions - it's cool
+# Then tally up at the bottom
+color_pred_correct <- function(result, p){
+  truth = (p > 0.5) & (result == 1)
+  c = formatter("span",
+      style = truth ~ style(color = ifelse(truth, "green", "red")),
+      truth ~ icontext(ifelse(truth, "ok", "remove"), ifelse(truth, p, p)))
+}
+df_yesterday %>%
+  # mutate(
+  #   elo = color_pred_correct(result, elo)
+  # ) %>%
+  kable('html', escape=F, digits=3) %>%
+  kable_styling(c('striped', 'hover'), full_width = F)
+```
+
+## Seasonal Model Accuracy 
+This section compares how accurate my models are with FiveThirtyEight's.
+
+#### Up to Today
+```{r}
+# Todo: save out the index
+df = read_csv('../sports-predictions/output/acc_overall.csv') %>% select(-index)
+all = round(df[1,], 3)
+all = all %>% select(home_overall, everything())
+# min = .50; max=1
+# g_home_freq = gauge(value = all$home_overall, min, max, label='Home')
+# g_home_winpct = gauge(value = all$home_winpct, min, max)
+# g_v01 = gauge(value = all$v01, min, max)
+# g_elo = gauge(value = all$elo, min, max)
+# g_home_freq
+# fluidRow(
+#   column(3,
+#       g_home_freq, 
+#   ),
+#   column(3,
+#       g_home_freq, 
+#   ),
+#   column(3,
+#       g_home_freq, 
+#   ),
+#   column(3,
+#       g_home_freq, 
+#   )
+# )
+
+
+# TODO: https://haozhu233.github.io/kableExtra/awesome_table_in_html.html#integration_with_formattable
+# add better cloring
+colnames(all) = c("Win Rate", "Home %", "Home % > Away %", "v01", "elo", "carm-elo", "raptor")
+all %>%
+  t() %>%
+  # as.data.frame() %>%
+  # mutate(V1 = scales::percent(V1,accuracy=.1)) %>%
+  # rename(` ` = V1) 
+  kable() %>%
+  kable_styling(c('striped', 'hover'), full_width = F) %>%
+  pack_rows("Home Team Benchmarks", 1,3, label_row_css = css) %>%
+  pack_rows("My Models", 4, 5, label_row_css = css) %>%
+  pack_rows("Five Thirty Eight", 6, ncol(all), label_row_css = css)
+  # add_header_above(c("Home Team Benchmarks" = 3, "My Model"=1, "538" = 3))
+  
+```
+
+* Win Rate: How often does the home team win?
+* Home %: How often does the home team win when its win % before the game was more than 50%? (A home team with a record of 53% is predicted to win, butwith a record of 49% is predicted to lose.)
+* Home % > Away %: If the home team's win % is greater than away team's win %, the home team is predicted to win. Otherwise, they're predicted to lose. E.g., if home win % = 0.39 and away win% = 0.40, I predict the away team will win.
+* v01: I build my own model.
+* V02: Version 2 of my model.
+
+#### Model Calibration
+
+How well do the model's predictions align with true probabilities? A prediction of 70% should win 70% of the time.
+
+```{r}
+df = read_csv('../sports-predictions/output/acc_overall.csv') %>% 
+  select( -home_overall, -home_vs_away_winpct) %>%
+  rename(score_range = index)
+df %>%
+  kable(digits=3)
+```
+
+#### Model Accuracy By Week
+```{r}
+df = read_csv('../sports-predictions/output/acc_upto_week.csv')
+colnames(df) %<>% gsub('acc_pred_[.]*', '', .)
+df %>%
+  rename(`Home %` = home_winpct) %>%
+  gather(model, accuracy, -season_week) %>%
+  ggplot(aes(x=season_week, y = accuracy, color = model)) +
+  geom_line() +
+  geom_point() + 
+  geom_hline(yintercept=.5) +
+  ggthemes::scale_color_pander() + 
+  theme_minimal() + 
+  labs(title='Accuracy of Model Through Season Week',
+       subtitle='A score of .67 at week 5 is the accuracy of the model across weeks 1-5',
+       x = 'Season Week',
+       y = "Model Accuracy",
+       caption = 'Source: 538')
 ```
 

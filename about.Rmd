@@ -1,10 +1,12 @@
 ---
-title: "About this site"
+title: "About"
 description: |
-  Some additional details about the website
+  Predicting 
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+> "All models are wrong, but some are useful". 
+> - George Box
