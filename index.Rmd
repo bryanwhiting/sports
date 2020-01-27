@@ -3,8 +3,7 @@ title: "NBA Predictions"
 description: |
   Comparing my models against 538 and some super-simple benchmarks
 site: 
-  distill::distill_website:
-    toc: false
+  distill::distill_website
 ---
 
 ```{r setup, include=FALSE}

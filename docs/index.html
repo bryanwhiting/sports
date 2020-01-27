@@ -1,1315 +1,318 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html>
 
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
-  <meta name="generator" content="distill" />
 
-  <style type="text/css">
-  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
-  body {
-    visibility: hidden;
-  }
-  </style>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
- <!--radix_placeholder_import_source-->
- <!--/radix_placeholder_import_source-->
 
-  <!--radix_placeholder_meta_tags-->
-  <title>Sports Predictions: NBA Predictions</title>
-  
-  <meta property="description" itemprop="description" content="Comparing my models against 538 and some super-simple benchmarks"/>
-  
-  
-  
-  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Sports Predictions: NBA Predictions"/>
-  <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Comparing my models against 538 and some super-simple benchmarks"/>
-  <meta property="og:locale" content="en_US"/>
-  <meta property="og:site_name" content="Sports Predictions"/>
-  
-  <!--  https://dev.twitter.com/cards/types/summary -->
-  <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Sports Predictions: NBA Predictions"/>
-  <meta property="twitter:description" content="Comparing my models against 538 and some super-simple benchmarks"/>
-  
-  <!--/radix_placeholder_meta_tags-->
-  <!--radix_placeholder_rmarkdown_metadata-->
-  
-  <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["NBA Predictions"]},{"type":"character","attributes":{},"value":["Comparing my models against 538 and some super-simple benchmarks\n"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
-  </script>
-  <!--/radix_placeholder_rmarkdown_metadata-->
-  <!--radix_placeholder_navigation_in_header-->
-  
-  <script type="application/javascript">
-  
-    window.headroom_prevent_pin = false;
-  
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-  
-      // initialize headroom for banner
-      var header = $('header').get(0);
-      var headerHeight = header.offsetHeight;
-      var headroom = new Headroom(header, {
-        onPin : function() {
-          if (window.headroom_prevent_pin) {
-            window.headroom_prevent_pin = false;
-            headroom.unpin();
-          }
-        }
-      });
-      headroom.init();
-      if(window.location.hash)
-        headroom.unpin();
-      $(header).addClass('headroom--transition');
-  
-      // offset scroll location for banner on hash change
-      // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
-      window.addEventListener("hashchange", function(event) {
-        window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
-      });
-  
-      // responsive menu
-      $('.distill-site-header').each(function(i, val) {
-        var topnav = $(this);
-        var toggle = topnav.find('.nav-toggle');
-        toggle.on('click', function() {
-          topnav.toggleClass('responsive');
-        });
-      });
-  
-      // nav dropdowns
-      $('.nav-dropbtn').click(function(e) {
-        $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
-        $(this).parent().siblings('.nav-dropdown')
-           .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
-      });
-      $("body").click(function(e){
-        $('.nav-dropdown-content').removeClass('nav-dropdown-active');
-      });
-      $(".nav-dropdown").click(function(e){
-        e.stopPropagation();
-      });
-    });
-  </script>
-  
-  <style type="text/css">
-  
-  /* Theme (user-documented overrideables for nav appearance) */
-  
-  .distill-site-nav {
-    color: rgba(255, 255, 255, 0.8);
-    background-color: #455a64;
-    font-size: 15px;
-    font-weight: 300;
-  }
-  
-  .distill-site-nav a {
-    color: inherit;
-    text-decoration: none;
-  }
-  
-  .distill-site-nav a:hover {
-    color: white;
-  }
-  
-  @media print {
-    .distill-site-nav {
-      display: none;
-    }
-  }
-  
-  .distill-site-header {
-  
-  }
-  
-  .distill-site-footer {
-  
-  }
-  
-  
-  /* Site Header */
-  
-  .distill-site-header {
-    width: 100%;
-    box-sizing: border-box;
-    z-index: 3;
-  }
-  
-  .distill-site-header .nav-left {
-    display: inline-block;
-    margin-left: 8px;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .distill-site-header .nav-left {
-      margin-left: 0;
-    }
-  }
-  
-  
-  .distill-site-header .nav-right {
-    float: right;
-    margin-right: 8px;
-  }
-  
-  .distill-site-header a,
-  .distill-site-header .title {
-    display: inline-block;
-    text-align: center;
-    padding: 14px 10px 14px 10px;
-  }
-  
-  .distill-site-header .title {
-    font-size: 18px;
-  }
-  
-  .distill-site-header .logo {
-    padding: 0;
-  }
-  
-  .distill-site-header .logo img {
-    display: none;
-    max-height: 20px;
-    width: auto;
-    margin-bottom: -4px;
-  }
-  
-  .distill-site-header .nav-image img {
-    max-height: 18px;
-    width: auto;
-    display: inline-block;
-    margin-bottom: -3px;
-  }
-  
-  
-  
-  @media screen and (min-width: 1000px) {
-    .distill-site-header .logo img {
-      display: inline-block;
-    }
-    .distill-site-header .nav-left {
-      margin-left: 20px;
-    }
-    .distill-site-header .nav-right {
-      margin-right: 20px;
-    }
-    .distill-site-header .title {
-      padding-left: 12px;
-    }
-  }
-  
-  
-  .distill-site-header .nav-toggle {
-    display: none;
-  }
-  
-  .nav-dropdown {
-    display: inline-block;
-    position: relative;
-  }
-  
-  .nav-dropdown .nav-dropbtn {
-    border: none;
-    outline: none;
-    color: rgba(255, 255, 255, 0.8);
-    padding: 16px 10px;
-    background-color: transparent;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    margin: 0;
-    margin-top: 1px;
-    z-index: 2;
-  }
-  
-  .nav-dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 200px;
-    border: 1px solid rgba(0,0,0,0.15);
-    border-radius: 4px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 1;
-    margin-top: 2px;
-    white-space: nowrap;
-    padding-top: 4px;
-    padding-bottom: 4px;
-  }
-  
-  .nav-dropdown-content hr {
-    margin-top: 4px;
-    margin-bottom: 4px;
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .nav-dropdown-active {
-    display: block;
-  }
-  
-  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
-    color: black;
-    padding: 6px 24px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-  }
-  
-  .nav-dropdown-content .nav-dropdown-header {
-    display: block;
-    padding: 5px 24px;
-    padding-bottom: 0;
-    text-transform: uppercase;
-    font-size: 14px;
-    color: #999999;
-    white-space: nowrap;
-  }
-  
-  .nav-dropdown:hover .nav-dropbtn {
-    color: white;
-  }
-  
-  .nav-dropdown-content a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  
-  .nav-right .nav-dropdown-content {
-    margin-left: -45%;
-    right: 0;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
-    .distill-site-header a.nav-toggle {
-      float: right;
-      display: block;
-    }
-    .distill-site-header .title {
-      margin-left: 0;
-    }
-    .distill-site-header .nav-right {
-      margin-right: 0;
-    }
-    .distill-site-header {
-      overflow: hidden;
-    }
-    .nav-right .nav-dropdown-content {
-      margin-left: 0;
-    }
-  }
-  
-  
-  @media screen and (max-width: 768px) {
-    .distill-site-header.responsive {position: relative;}
-    .distill-site-header.responsive a.nav-toggle {
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-    .distill-site-header.responsive a,
-    .distill-site-header.responsive .nav-dropdown {
-      display: block;
-      text-align: left;
-    }
-    .distill-site-header.responsive .nav-left,
-    .distill-site-header.responsive .nav-right {
-      width: 100%;
-    }
-    .distill-site-header.responsive .nav-dropdown {float: none;}
-    .distill-site-header.responsive .nav-dropdown-content {position: relative;}
-    .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
-      display: block;
-      width: 100%;
-      text-align: left;
-    }
-  }
-  
-  /* Site Footer */
-  
-  .distill-site-footer {
-    width: 100%;
-    overflow: hidden;
-    box-sizing: border-box;
-    z-index: 3;
-    margin-top: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    text-align: center;
-  }
-  
-  /* Headroom */
-  
-  d-title {
-    padding-top: 6rem;
-  }
-  
-  @media print {
-    d-title {
-      padding-top: 4rem;
-    }
-  }
-  
-  .headroom {
-    z-index: 1000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  .headroom--transition {
-    transition: all .4s ease-in-out;
-  }
-  
-  .headroom--unpinned {
-    top: -100px;
-  }
-  
-  .headroom--pinned {
-    top: 0;
-  }
-  
-  </style>
-  
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
-  <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
-  <!--/radix_placeholder_navigation_in_header-->
-  <!--radix_placeholder_distill-->
-  
-  <style type="text/css">
-  
-  body {
+
+
+<title>NBA Predictions</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
     background-color: white;
   }
-  
-  .pandoc-table {
-    width: 100%;
-  }
-  
-  .pandoc-table>caption {
-    margin-bottom: 10px;
-  }
-  
-  .pandoc-table th:not([align]) {
-    text-align: left;
-  }
-  
-  .pagedtable-footer {
-    font-size: 15px;
-  }
-  
-  .html-widget {
-    margin-bottom: 2.0em;
-  }
-  
-  .l-screen-inset {
-    padding-right: 16px;
-  }
-  
-  .l-screen .caption {
-    margin-left: 10px;
-  }
-  
-  .shaded {
-    background: rgb(247, 247, 247);
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .shaded .html-widget {
-    margin-bottom: 0;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .shaded .shaded-content {
-    background: white;
-  }
-  
-  .text-output {
-    margin-top: 0;
-    line-height: 1.5em;
-  }
-  
-  .hidden {
-    display: none !important;
-  }
-  
-  d-article {
-    padding-bottom: 30px;
-  }
-  
-  d-appendix {
-    padding-top: 30px;
-  }
-  
-  d-article>p>img {
-    width: 100%;
-  }
-  
-  d-article iframe {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 2.0em;
-    width: 100%;
-  }
-  
-  figure img.external {
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-    padding: 18px;
-    box-sizing: border-box;
-  }
-  
-  /* CSS for table of contents */
-  
-  .d-toc {
-    color: rgba(0,0,0,0.8);
-    font-size: 0.8em;
-    line-height: 1em;
-  }
-  
-  .d-toc-header {
-    font-size: 0.6rem;
-    font-weight: 400;
-    color: rgba(0, 0, 0, 0.5);
-    text-transform: uppercase;
-    margin-top: 0;
-    margin-bottom: 1.3em;
-  }
-  
-  .d-toc a {
-    border-bottom: none;
-  }
-  
-  .d-toc ul {
-    padding-left: 0;
-  }
-  
-  .d-toc li>ul {
-    padding-top: 0.8em;
-    padding-left: 16px;
-    margin-bottom: 0.6em;
-  }
-  
-  .d-toc ul,
-  .d-toc li {
-    list-style-type: none;
-  }
-  
-  .d-toc li {
-    margin-bottom: 0.9em;
-  }
-  
-  .d-toc-separator {
-    margin-top: 20px;
-    margin-bottom: 2em;
-  }
-  
-  .d-article-with-toc {
-    border-top: none;
-    padding-top: 0;
-  }
-  
-  
-  
-  /* Tweak code blocks (note that this CSS is repeated above in an injection
-     into the d-code shadow dom) */
-  
-  d-code {
-    overflow-x: auto !important;
-  }
-  
-  pre.d-code code.d-code {
-    padding-left: 10px;
-    font-size: 12px;
-    border-left: 2px solid rgba(0,0,0,0.1);
-  }
-  
-  pre.text-output {
-  
-    font-size: 12px;
-    color: black;
-    background: none;
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-break: normal;
-    word-wrap: normal;
-    line-height: 1.5;
-  
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4;
-  
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
-    hyphens: none;
-  }
-  
-  @media(min-width: 768px) {
-  
-  d-code {
-    overflow-x: visible !important;
-  }
-  
-  pre.d-code code.d-code  {
-      padding-left: 18px;
-      font-size: 14px;
-  }
-  pre.text-output {
-    font-size: 14px;
-  }
-  }
-  
-  /* Figure */
-  
-  .figure {
-    position: relative;
-    margin-bottom: 2.5em;
-    margin-top: 1.5em;
-  }
-  
-  .figure img {
-    width: 100%;
-  }
-  
-  .figure .caption {
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 12px;
-    line-height: 1.5em;
-  }
-  
-  .figure img.external {
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-    padding: 18px;
-    box-sizing: border-box;
-  }
-  
-  .figure .caption a {
-    color: rgba(0, 0, 0, 0.6);
-  }
-  
-  .figure .caption b,
-  .figure .caption strong, {
-    font-weight: 600;
-    color: rgba(0, 0, 0, 1.0);
-  }
-  
-  
-  
-  /* Tweak 1000px media break to show more text */
-  
-  @media(min-width: 1000px) {
-    .base-grid,
-    distill-header,
-    d-title,
-    d-abstract,
-    d-article,
-    d-appendix,
-    distill-appendix,
-    d-byline,
-    d-footnote-list,
-    d-citation-list,
-    distill-footer {
-      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
-      grid-column-gap: 16px;
-    }
-  
-    .grid {
-      grid-column-gap: 16px;
-    }
-  
-    d-article {
-      font-size: 1.06rem;
-      line-height: 1.7em;
-    }
-    figure .caption, .figure .caption, figure figcaption {
-      font-size: 13px;
-    }
-  }
-  
-  @media(min-width: 1180px) {
-    .base-grid,
-    distill-header,
-    d-title,
-    d-abstract,
-    d-article,
-    d-appendix,
-    distill-appendix,
-    d-byline,
-    d-footnote-list,
-    d-citation-list,
-    distill-footer {
-      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
-      grid-column-gap: 32px;
-    }
-  
-    .grid {
-      grid-column-gap: 32px;
-    }
-  }
-  
-  
-  /* Get the citation styles for the appendix (not auto-injected on render since
-     we do our own rendering of the citation appendix) */
-  
-  d-appendix .citation-appendix,
-  .d-appendix .citation-appendix {
-    font-size: 11px;
-    line-height: 15px;
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-    padding-left: 18px;
-    border: 1px solid rgba(0,0,0,0.1);
-    background: rgba(0, 0, 0, 0.02);
-    padding: 10px 18px;
-    border-radius: 3px;
-    color: rgba(150, 150, 150, 1);
-    overflow: hidden;
-    margin-top: -12px;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-  
-  
-  /* Social footer */
-  
-  .social_footer {
-    margin-top: 30px;
-    margin-bottom: 0;
-    color: rgba(0,0,0,0.67);
-  }
-  
-  .disqus-comments {
-    margin-right: 30px;
-  }
-  
-  .disqus-comment-count {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-  }
-  
-  #disqus_thread {
-    margin-top: 30px;
-  }
-  
-  .article-sharing a {
-    border-bottom: none;
-    margin-right: 8px;
-  }
-  
-  .article-sharing a:hover {
-    border-bottom: none;
-  }
-  
-  .sidebar-section.subscribe {
-    font-size: 12px;
-    line-height: 1.6em;
-  }
-  
-  .subscribe p {
-    margin-bottom: 0.5em;
-  }
-  
-  
-  .article-footer .subscribe {
-    font-size: 15px;
-    margin-top: 45px;
-  }
-  
-  
-  /* Improve display for browsers without grid (IE/Edge <= 15) */
-  
-  .downlevel {
-    line-height: 1.6em;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
-    margin: 0;
-  }
-  
-  .downlevel .d-title {
-    padding-top: 6rem;
-    padding-bottom: 1.5rem;
-  }
-  
-  .downlevel .d-title h1 {
-    font-size: 50px;
-    font-weight: 700;
-    line-height: 1.1em;
-    margin: 0 0 0.5rem;
-  }
-  
-  .downlevel .d-title p {
-    font-weight: 300;
-    font-size: 1.2rem;
-    line-height: 1.55em;
-    margin-top: 0;
-  }
-  
-  .downlevel .d-byline {
-    padding-top: 0.8em;
-    padding-bottom: 0.8em;
-    font-size: 0.8rem;
-    line-height: 1.8em;
-  }
-  
-  .downlevel .section-separator {
-    border: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .downlevel .d-article {
-    font-size: 1.06rem;
-    line-height: 1.7em;
-    padding-top: 1rem;
-    padding-bottom: 2rem;
-  }
-  
-  
-  .downlevel .d-appendix {
-    padding-left: 0;
-    padding-right: 0;
-    max-width: none;
-    font-size: 0.8em;
-    line-height: 1.7em;
-    margin-bottom: 0;
-    color: rgba(0,0,0,0.5);
-    padding-top: 40px;
-    padding-bottom: 48px;
-  }
-  
-  .downlevel .footnotes ol {
-    padding-left: 13px;
-  }
-  
-  .downlevel .base-grid,
-  .downlevel .distill-header,
-  .downlevel .d-title,
-  .downlevel .d-abstract,
-  .downlevel .d-article,
-  .downlevel .d-appendix,
-  .downlevel .distill-appendix,
-  .downlevel .d-byline,
-  .downlevel .d-footnote-list,
-  .downlevel .d-citation-list,
-  .downlevel .distill-footer,
-  .downlevel .appendix-bottom,
-  .downlevel .posts-container {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
-  
-  @media(min-width: 768px) {
-    .downlevel .base-grid,
-    .downlevel .distill-header,
-    .downlevel .d-title,
-    .downlevel .d-abstract,
-    .downlevel .d-article,
-    .downlevel .d-appendix,
-    .downlevel .distill-appendix,
-    .downlevel .d-byline,
-    .downlevel .d-footnote-list,
-    .downlevel .d-citation-list,
-    .downlevel .distill-footer,
-    .downlevel .appendix-bottom,
-    .downlevel .posts-container {
-    padding-left: 150px;
-    padding-right: 150px;
-    max-width: 900px;
-  }
-  }
-  
-  .downlevel pre code {
-    display: block;
-    border-left: 2px solid rgba(0, 0, 0, .1);
-    padding: 0 0 0 20px;
-    font-size: 14px;
-  }
-  
-  .downlevel code, .downlevel pre {
-    color: black;
-    background: none;
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-break: normal;
-    word-wrap: normal;
-    line-height: 1.5;
-  
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4;
-  
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
-    hyphens: none;
-  }
-  
-  </style>
-  
-  <script type="application/javascript">
-  
-  function is_downlevel_browser() {
-    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
-                                   window.navigator.userAgent)) {
-      return true;
-    } else {
-      return window.load_distill_framework === undefined;
-    }
-  }
-  
-  // show body when load is complete
-  function on_load_complete() {
-  
-    // set body to visible
-    document.body.style.visibility = 'visible';
-  
-    // force redraw for leaflet widgets
-    if (window.HTMLWidgets) {
-      var maps = window.HTMLWidgets.findAll(".leaflet");
-      $.each(maps, function(i, el) {
-        var map = this.getMap();
-        map.invalidateSize();
-        map.eachLayer(function(layer) {
-          if (layer instanceof L.TileLayer)
-            layer.redraw();
-        });
-      });
-    }
-  
-    // trigger 'shown' so htmlwidgets resize
-    $('d-article').trigger('shown');
-  }
-  
-  function init_distill() {
-  
-    init_common();
-  
-    // create front matter
-    var front_matter = $('<d-front-matter></d-front-matter>');
-    $('#distill-front-matter').wrap(front_matter);
-  
-    // create d-title
-    $('.d-title').changeElementType('d-title');
-  
-    // create d-byline
-    var byline = $('<d-byline></d-byline>');
-    $('.d-byline').replaceWith(byline);
-  
-    // create d-article
-    var article = $('<d-article></d-article>');
-    $('.d-article').wrap(article).children().unwrap();
-  
-    // move posts container into article
-    $('.posts-container').appendTo($('d-article'));
-  
-    // create d-appendix
-    $('.d-appendix').changeElementType('d-appendix');
-  
-    // create d-bibliography
-    var bibliography = $('<d-bibliography></d-bibliography>');
-    $('#distill-bibliography').wrap(bibliography);
-  
-    // flag indicating that we have appendix items
-    var appendix = $('.appendix-bottom').children('h3').length > 0;
-  
-    // replace citations with <d-cite>
-    $('.citation').each(function(i, val) {
-      appendix = true;
-      var cites = $(this).attr('data-cites').split(" ");
-      var dt_cite = $('<d-cite></d-cite>');
-      dt_cite.attr('key', cites.join());
-      $(this).replaceWith(dt_cite);
-    });
-    // remove refs
-    $('#refs').remove();
-  
-    // replace footnotes with <d-footnote>
-    $('.footnote-ref').each(function(i, val) {
-      appendix = true;
-      var href = $(this).attr('href');
-      var id = href.replace('#', '');
-      var fn = $('#' + id);
-      var fn_p = $('#' + id + '>p');
-      fn_p.find('.footnote-back').remove();
-      var text = fn_p.html();
-      var dtfn = $('<d-footnote></d-footnote>');
-      dtfn.html(text);
-      $(this).replaceWith(dtfn);
-    });
-    // remove footnotes
-    $('.footnotes').remove();
-  
-    $('h1.appendix, h2.appendix').each(function(i, val) {
-      $(this).changeElementType('h3');
-    });
-    $('h3.appendix').each(function(i, val) {
-      var id = $(this).attr('id');
-      $('.d-toc a[href="#' + id + '"]').parent().remove();
-      appendix = true;
-      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
-    });
-  
-    // show d-appendix if we have appendix content
-    $("d-appendix").css('display', appendix ? 'grid' : 'none');
-  
-    // replace code blocks with d-code
-    $('pre>code').each(function(i, val) {
-      var code = $(this);
-      var pre = code.parent();
-      var clz = "";
-      var language = pre.attr('class');
-      if (language) {
-        // map unknown languages to "clike" (without this they just dissapear)
-        if ($.inArray(language, ["bash", "clike", "css", "go", "html",
-                                 "javascript", "js", "julia", "lua", "markdown",
-                                 "markup", "mathml", "python", "svg", "xml"]) == -1)
-          language = "clike";
-        language = ' language="' + language + '"';
-        var dt_code = $('<d-code block' + language + clz + '></d-code>');
-        dt_code.text(code.text());
-        pre.replaceWith(dt_code);
-      } else {
-        code.addClass('text-output').unwrap().changeElementType('pre');
-      }
-    });
-  
-    // localize layout chunks to just output
-    $('.layout-chunk').each(function(i, val) {
-  
-      // capture layout
-      var layout = $(this).attr('data-layout');
-  
-      // apply layout to markdown level block elements
-      var elements = $(this).children().not('d-code, pre.text-output, script');
-      elements.each(function(i, el) {
-        var layout_div = $('<div class="' + layout + '"></div>');
-        if (layout_div.hasClass('shaded')) {
-          var shaded_content = $('<div class="shaded-content"></div>');
-          $(this).wrap(shaded_content);
-          $(this).parent().wrap(layout_div);
-        } else {
-          $(this).wrap(layout_div);
-        }
-      });
-  
-  
-      // unwrap the layout-chunk div
-      $(this).children().unwrap();
-    });
-  
-    // load distill framework
-    load_distill_framework();
-  
-    // wait for window.distillRunlevel == 4 to do post processing
-    function distill_post_process() {
-  
-      if (!window.distillRunlevel || window.distillRunlevel < 4)
-        return;
-  
-      // hide author/affiliations entirely if we have no authors
-      var front_matter = JSON.parse($("#distill-front-matter").html());
-      var have_authors = front_matter.authors && front_matter.authors.length > 0;
-      if (!have_authors)
-        $('d-byline').addClass('hidden');
-  
-      // table of contents
-      if (have_authors) // adjust border if we are in authors
-        $('.d-toc').parent().addClass('d-article-with-toc');
-  
-      // strip links that point to #
-      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
-  
-      // hide elements of author/affiliations grid that have no value
-      function hide_byline_column(caption) {
-        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
-      }
-  
-      // affiliations
-      var have_affiliations = false;
-      for (var i = 0; i<front_matter.authors.length; ++i) {
-        var author = front_matter.authors[i];
-        if (author.affiliation !== "&nbsp;") {
-          have_affiliations = true;
-          break;
-        }
-      }
-      if (!have_affiliations)
-        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
-  
-      // published date
-      if (!front_matter.publishedDate)
-        hide_byline_column("Published");
-  
-      // document object identifier
-      var doi = $('d-byline').find('h3:contains("DOI")');
-      var doi_p = doi.next().empty();
-      if (!front_matter.doi) {
-        // if we have a citation and valid citationText then link to that
-        if ($('#citation').length > 0 && front_matter.citationText) {
-          doi.html('Citation');
-          $('<a href="#citation"></a>')
-            .text(front_matter.citationText)
-            .appendTo(doi_p);
-        } else {
-          hide_byline_column("DOI");
-        }
-      } else {
-        $('<a></a>')
-           .attr('href', "https://doi.org/" + front_matter.doi)
-           .html(front_matter.doi)
-           .appendTo(doi_p);
-      }
-  
-       // change plural form of authors/affiliations
-      if (front_matter.authors.length === 1) {
-        var grid = $('.authors-affiliations');
-        grid.children('h3:contains("Authors")').text('Author');
-        grid.children('h3:contains("Affiliations")').text('Affiliation');
-      }
-  
-      // inject pre code styles (can't do this with a global stylesheet b/c a shadow root is used)
-      $('d-code').each(function(i, val) {
-        var style = document.createElement('style');
-        style.innerHTML = 'pre code { padding-left: 10px; font-size: 12px; border-left: 2px solid rgba(0,0,0,0.1); } ' +
-                          '@media(min-width: 768px) { pre code { padding-left: 18px; font-size: 14px; } }';
-        if (this.shadowRoot)
-          this.shadowRoot.appendChild(style);
-      });
-  
-      // move appendix-bottom entries to the bottom
-      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
-      $('.appendix-bottom').remove();
-  
-      // clear polling timer
-      clearInterval(tid);
-  
-      // show body now that everything is ready
-      on_load_complete();
-    }
-  
-    var tid = setInterval(distill_post_process, 50);
-    distill_post_process();
-  
-  }
-  
-  function init_downlevel() {
-  
-    init_common();
-  
-     // insert hr after d-title
-    $('.d-title').after($('<hr class="section-separator"/>'));
-  
-    // check if we have authors
-    var front_matter = JSON.parse($("#distill-front-matter").html());
-    var have_authors = front_matter.authors && front_matter.authors.length > 0;
-  
-    // manage byline/border
-    if (!have_authors)
-      $('.d-byline').remove();
-    $('.d-byline').after($('<hr class="section-separator"/>'));
-    $('.d-byline a').remove();
-  
-    // remove toc
-    $('.d-toc-header').remove();
-    $('.d-toc').remove();
-    $('.d-toc-separator').remove();
-  
-    // move appendix elements
-    $('h1.appendix, h2.appendix').each(function(i, val) {
-      $(this).changeElementType('h3');
-    });
-    $('h3.appendix').each(function(i, val) {
-      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
-    });
-  
-  
-    // inject headers into references and footnotes
-    var refs_header = $('<h3></h3>');
-    refs_header.text('References');
-    $('#refs').prepend(refs_header);
-  
-    var footnotes_header = $('<h3></h3');
-    footnotes_header.text('Footnotes');
-    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
-  
-    // move appendix-bottom entries to the bottom
-    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
-    $('.appendix-bottom').remove();
-  
-    // remove appendix if it's empty
-    if ($('.d-appendix').children().length === 0)
-      $('.d-appendix').remove();
-  
-    // prepend separator above appendix
-    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
-  
-    // trim code
-    $('pre>code').each(function(i, val) {
-      $(this).html($.trim($(this).html()));
-    });
-  
-    // move posts-container right before article
-    $('.posts-container').insertBefore($('.d-article'));
-  
-    $('body').addClass('downlevel');
-  
-    on_load_complete();
-  }
-  
-  
-  function init_common() {
-  
-    // jquery plugin to change element types
-    (function($) {
-      $.fn.changeElementType = function(newType) {
-        var attrs = {};
-  
-        $.each(this[0].attributes, function(idx, attr) {
-          attrs[attr.nodeName] = attr.nodeValue;
-        });
-  
-        this.replaceWith(function() {
-          return $("<" + newType + "/>", attrs).append($(this).contents());
-        });
-      };
-    })(jQuery);
-  
-    // prevent underline for linked images
-    $('a > img').parent().css({'border-bottom' : 'none'});
-  
-    // mark non-body figures created by knitr chunks as 100% width
-    $('.layout-chunk').each(function(i, val) {
-      var figures = $(this).find('img, .html-widget');
-      if ($(this).attr('data-layout') !== "l-body") {
-        figures.css('width', '100%');
-      } else {
-        figures.css('max-width', '100%');
-        figures.filter("[width]").each(function(i, val) {
-          var fig = $(this);
-          fig.css('width', fig.attr('width') + 'px');
-        });
-  
-      }
-    });
-  
-    // auto-append index.html to post-preview links in file: protocol
-    // and in rstudio ide preview
-    $('.post-preview').each(function(i, val) {
-      if (window.location.protocol === "file:")
-        $(this).attr('href', $(this).attr('href') + "index.html");
-    });
-  
-    // get rid of index.html references in header
-    if (window.location.protocol !== "file:") {
-      $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
-      });
-    }
-  
-    // add class to pandoc style tables
-    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
-    $('.kable-table').children('table').addClass('pandoc-table');
-  
-    // add figcaption style to table captions
-    $('caption').parent('table').addClass("figcaption");
-  
-    // initialize posts list
-    if (window.init_posts_list)
-      window.init_posts_list();
-  
-    // implmement disqus comment link
-    $('.disqus-comment-count').click(function() {
-      window.headroom_prevent_pin = true;
-      $('#disqus_thread').toggleClass('hidden');
-      if (!$('#disqus_thread').hasClass('hidden')) {
-        var offset = $(this).offset();
-        $(window).resize();
-        $('html, body').animate({
-          scrollTop: offset.top - 35
-        });
-      }
-    });
-  }
-  
-  document.addEventListener('DOMContentLoaded', function() {
-    if (is_downlevel_browser())
-      init_downlevel();
-    else
-      window.addEventListener('WebComponentsReady', init_distill);
-  });
-  
-  </script>
-  
-  <!--/radix_placeholder_distill-->
-  <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-  <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
-  <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
-  <script src="site_libs/distill-2.2.21/template.v2.js"></script>
-  <!--radix_placeholder_site_in_header-->
-  <!--/radix_placeholder_site_in_header-->
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
 
 
 </head>
 
 <body>
 
-<!--radix_placeholder_front_matter-->
 
-<script id="distill-front-matter" type="text/json">
-{"title":"NBA Predictions","description":"Comparing my models against 538 and some super-simple benchmarks","authors":[]}
-</script>
+<div class="container-fluid main-container">
 
-<!--/radix_placeholder_front_matter-->
-<!--radix_placeholder_navigation_before_body-->
-<header class="header header--fixed" role="banner">
-<nav class="distill-site-nav distill-site-header">
-<div class="nav-left">
-<a href="index.html" class="title">Sports Predictions</a>
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">NBA</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">NBA Predictions</h1>
+
 </div>
-<div class="nav-right">
-<a href="index.html">NBA</a>
-<a href="about.html">About</a>
-<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
-</div>
-</nav>
-</header>
-<!--/radix_placeholder_navigation_before_body-->
-<!--radix_placeholder_site_before_body-->
-<!--/radix_placeholder_site_before_body-->
-
-<div class="d-title">
-<h1>NBA Predictions</h1>
-<p>Comparing my models against 538 and some super-simple benchmarks</p>
-</div>
 
 
-<div class="d-article">
-<h3 class="d-toc-header">Table of Contents</h3>
-<nav class="d-toc" id="TOC">
-<ul>
-<li><a href="#this-weeks-games">This week’s games</a></li>
-</ul>
-</nav>
-<hr class="d-toc-separator"/>
-<h2 id="this-weeks-games">This week’s games</h2>
-<div class="layout-chunk" data-layout="l-body">
+<p>Each day I challenge <a href="https://projects.fivethirtyeight.com/2020-nba-predictions/games/">FiveThirtyEight’s Raptor</a> predictions<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<div id="today-and-tomorrows-games" class="section level2">
+<h2>Today and Tomorrow’s Games</h2>
+<pre><code>## Parsed with column specification:
+## cols(
+##   datetime = col_datetime(format = &quot;&quot;),
+##   season_week = col_integer(),
+##   team1 = col_character(),
+##   team2 = col_character(),
+##   result = col_integer(),
+##   pg_score1 = col_double(),
+##   pg_score2 = col_double(),
+##   elo_prob1 = col_double(),
+##   `carm-elo_prob1` = col_double(),
+##   raptor_prob1 = col_double(),
+##   result_v01_prob1 = col_double(),
+##   result_v02_prob1 = col_double()
+## )</code></pre>
 <table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1334,281 +337,1071 @@ v02
 </tr>
 </thead>
 <tbody>
-<tr grouplength="5">
+<tr grouplength="6">
 <td colspan="6" style="background-color: #666; color: #fff;">
-<strong>Sat, Jan 25</strong>
+<strong>Mon, Jan 27</strong>
 </td>
 </tr>
 <tr>
 <td style="text-align:left; padding-left: 2em;" indentlevel="1">
-DAL @ UTA
+CLE @ DET
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #0fff0f">70%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #25ff25">80%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #0cff0c">73%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #22ff22">81%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #14ff14">70%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #38ff38">69%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #0bff0b">62%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #6cff6c">72%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #2aff2a">54%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #2cff2c">70%</span>
 </td>
 </tr>
 <tr>
 <td style="text-align:left; padding-left: 2em;" indentlevel="1">
-BRK @ DET
+ORL @ MIA
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #1dff1d">66%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #2fff2f">76%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #3bff3b">59%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #26ff26">80%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffd1d1">40%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #41ff41">66%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #21ff21">56%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #91ff91">67%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #00ff00">65%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #39ff39">66%</span>
 </td>
 </tr>
 <tr>
 <td style="text-align:left; padding-left: 2em;" indentlevel="1">
-CHI @ CLE
-</td>
-<td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #4eff4e">52%</span>
-</td>
-<td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #3dff3d">58%</span>
-</td>
-<td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #1aff1a">68%</span>
-</td>
-<td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #2cff2c">53%</span>
+SAS @ CHI
 </td>
 <td style="text-align:left;">
 <span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">46%</span>
 </td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-OKC @ MIN
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #76ff76">50%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffc0c0">36%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #5aff5a">57%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffbcbc">35%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #88ff88">68%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #00ff00">76%</span>
-</td>
-<td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffc9c9">38%</span>
-</td>
-<td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffd2d2">38%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #59ff59">55%</span>
 </td>
 </tr>
 <tr>
 <td style="text-align:left; padding-left: 2em;" indentlevel="1">
-LAL @ PHI
+SAC @ MIN
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #46ff46">54%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #62ff62">57%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #52ff52">52%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #62ff62">58%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #53ff53">51%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #35ff35">70%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">48%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">52%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffafa">45%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #3fff3f">64%</span>
 </td>
 </tr>
-<tr grouplength="8">
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+DAL @ OKC
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #52ff52">63%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #4fff4f">65%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff9f9">48%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ecffec">54%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">49%</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOU @ UTA
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #3aff3a">72%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #2bff2b">78%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #3cff3c">68%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #93ff93">67%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #35ff35">67%</span>
+</td>
+</tr>
+<tr grouplength="9">
 <td colspan="6" style="background-color: #666; color: #fff;">
-<strong>Sun, Jan 26</strong>
+<strong>Tue, Jan 28</strong>
 </td>
 </tr>
 <tr>
 <td style="text-align:left; padding-left: 2em;" indentlevel="1">
-HOU @ DEN
+NYK @ CHO
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #29ff29">63%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #47ff47">67%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #2bff2b">64%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #43ff43">69%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #55ff55">51%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #4bff4b">63%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #18ff18">59%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #deffde">56%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #1dff1d">57%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #5cff5c">54%</span>
 </td>
 </tr>
 <tr>
 <td style="text-align:left; padding-left: 2em;" indentlevel="1">
-TOR @ SAS
+GSW @ PHI
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffecec">44%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #0dff0d">89%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffe7e7">43%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #0dff0d">89%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffbebe">37%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #00ff00">89%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffc0c0">36%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #00ff00">87%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff0f0">43%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #00ff00">85%</span>
 </td>
 </tr>
 <tr>
 <td style="text-align:left; padding-left: 2em;" indentlevel="1">
-WAS @ ATL
+NOP @ CLE
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #4aff4a">53%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffbcbc">34%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #52ff52">52%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">27%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #4fff4f">52%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ff8888">26%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #23ff23">56%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #cdffcd">58%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #37ff37">51%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #67ff67">51%</span>
 </td>
 </tr>
 <tr>
 <td style="text-align:left; padding-left: 2em;" indentlevel="1">
-PHO @ MEM
+BOS @ MIA
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #00ff00">75%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #59ff59">61%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #00ff00">77%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #6eff6e">53%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #38ff38">59%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #6bff6b">52%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #02ff02">64%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #cdffcd">59%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #27ff27">55%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffafa">48%</span>
 </td>
 </tr>
 <tr>
 <td style="text-align:left; padding-left: 2em;" indentlevel="1">
-BOS @ NOP
+ATL @ TOR
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffebeb">44%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #03ff03">92%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffdbdb">41%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #02ff02">93%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #14ff14">70%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #02ff02">88%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffacac">32%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #c4ffc4">60%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffd9d9">39%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #31ff31">69%</span>
 </td>
 </tr>
 <tr>
 <td style="text-align:left; padding-left: 2em;" indentlevel="1">
-BRK @ NYK
+DEN @ MEM
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #50ff50">51%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #73ff73">51%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #4cff4c">54%</span>
-</td>
-<td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff1f1">46%</span>
-</td>
-<td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #00ff00">65%</span>
-</td>
-<td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #1dff1d">57%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-LAC @ ORL
-</td>
-<td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">47%</span>
-</td>
-<td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffafa">47%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #6eff6e">53%</span>
 </td>
 <td style="text-align:left;">
 <span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">49%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffc2c2">37%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #c4ffc4">60%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffc3c3">35%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #5dff5d">54%</span>
 </td>
 </tr>
 <tr>
 <td style="text-align:left; padding-left: 2em;" indentlevel="1">
-IND @ POR
+WAS @ MIL
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">47%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #00ff00">94%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">48%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #00ff00">94%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #35ff35">60%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #01ff01">89%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffcfcf">39%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #81ff81">69%</span>
 </td>
 <td style="text-align:left;">
-<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffdede">40%</span>
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #20ff20">74%</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+PHO @ DAL
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #18ff18">85%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #1fff1f">82%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #23ff23">76%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #cdffcd">59%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #3aff3a">66%</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+LAC @ LAL
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #47ff47">67%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #49ff49">67%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #2dff2d">73%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #9cff9c">65%</span>
+</td>
+<td style="text-align:left;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #54ff54">57%</span>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="layout-chunk" data-layout="l-body">
-<table>
+<div id="last-three-days-predictions-vs.results" class="section level2">
+<h2>Last Three Day’s Predictions vs. Results</h2>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+date
+</th>
+<th style="text-align:left;">
+team1
+</th>
+<th style="text-align:left;">
+team2
+</th>
+<th style="text-align:right;">
+result
+</th>
+<th style="text-align:right;">
+elo
+</th>
+<th style="text-align:right;">
+carm-elo
+</th>
+<th style="text-align:right;">
+raptor
+</th>
+<th style="text-align:right;">
+v01
+</th>
+<th style="text-align:right;">
+v02
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2020-01-24
+</td>
+<td style="text-align:left;">
+CHO
+</td>
+<td style="text-align:left;">
+MIL
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.099
+</td>
+<td style="text-align:right;">
+0.089
+</td>
+<td style="text-align:right;">
+0.083
+</td>
+<td style="text-align:right;">
+0.245
+</td>
+<td style="text-align:right;">
+0.224
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-24
+</td>
+<td style="text-align:left;">
+DET
+</td>
+<td style="text-align:left;">
+MEM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.595
+</td>
+<td style="text-align:right;">
+0.581
+</td>
+<td style="text-align:right;">
+0.409
+</td>
+<td style="text-align:right;">
+0.518
+</td>
+<td style="text-align:right;">
+0.617
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-24
+</td>
+<td style="text-align:left;">
+ORL
+</td>
+<td style="text-align:left;">
+BOS
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.490
+</td>
+<td style="text-align:right;">
+0.484
+</td>
+<td style="text-align:right;">
+0.725
+</td>
+<td style="text-align:right;">
+0.373
+</td>
+<td style="text-align:right;">
+0.464
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-24
+</td>
+<td style="text-align:left;">
+NYK
+</td>
+<td style="text-align:left;">
+TOR
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.208
+</td>
+<td style="text-align:right;">
+0.166
+</td>
+<td style="text-align:right;">
+0.193
+</td>
+<td style="text-align:right;">
+0.246
+</td>
+<td style="text-align:right;">
+0.316
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-24
+</td>
+<td style="text-align:left;">
+CHI
+</td>
+<td style="text-align:left;">
+SAC
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.626
+</td>
+<td style="text-align:right;">
+0.603
+</td>
+<td style="text-align:right;">
+0.486
+</td>
+<td style="text-align:right;">
+0.660
+</td>
+<td style="text-align:right;">
+0.630
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-24
+</td>
+<td style="text-align:left;">
+MIA
+</td>
+<td style="text-align:left;">
+LAC
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.625
+</td>
+<td style="text-align:right;">
+0.620
+</td>
+<td style="text-align:right;">
+0.399
+</td>
+<td style="text-align:right;">
+0.604
+</td>
+<td style="text-align:right;">
+0.516
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-24
+</td>
+<td style="text-align:left;">
+MIN
+</td>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.362
+</td>
+<td style="text-align:right;">
+0.335
+</td>
+<td style="text-align:right;">
+0.402
+</td>
+<td style="text-align:right;">
+0.292
+</td>
+<td style="text-align:right;">
+0.429
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-24
+</td>
+<td style="text-align:left;">
+NOP
+</td>
+<td style="text-align:left;">
+DEN
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.511
+</td>
+<td style="text-align:right;">
+0.512
+</td>
+<td style="text-align:right;">
+0.660
+</td>
+<td style="text-align:right;">
+0.355
+</td>
+<td style="text-align:right;">
+0.480
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-24
+</td>
+<td style="text-align:left;">
+OKC
+</td>
+<td style="text-align:left;">
+ATL
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.889
+</td>
+<td style="text-align:right;">
+0.896
+</td>
+<td style="text-align:right;">
+0.869
+</td>
+<td style="text-align:right;">
+0.830
+</td>
+<td style="text-align:right;">
+0.847
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-24
+</td>
+<td style="text-align:left;">
+SAS
+</td>
+<td style="text-align:left;">
+PHO
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.798
+</td>
+<td style="text-align:right;">
+0.822
+</td>
+<td style="text-align:right;">
+0.607
+</td>
+<td style="text-align:right;">
+0.655
+</td>
+<td style="text-align:right;">
+0.615
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-24
+</td>
+<td style="text-align:left;">
+GSW
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.322
+</td>
+<td style="text-align:right;">
+0.328
+</td>
+<td style="text-align:right;">
+0.407
+</td>
+<td style="text-align:right;">
+0.244
+</td>
+<td style="text-align:right;">
+0.283
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-25
+</td>
+<td style="text-align:left;">
+UTA
+</td>
+<td style="text-align:left;">
+DAL
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.704
+</td>
+<td style="text-align:right;">
+0.730
+</td>
+<td style="text-align:right;">
+0.698
+</td>
+<td style="text-align:right;">
+0.619
+</td>
+<td style="text-align:right;">
+0.541
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-25
+</td>
+<td style="text-align:left;">
+DET
+</td>
+<td style="text-align:left;">
+BRK
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.661
+</td>
+<td style="text-align:right;">
+0.589
+</td>
+<td style="text-align:right;">
+0.402
+</td>
+<td style="text-align:right;">
+0.563
+</td>
+<td style="text-align:right;">
+0.650
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-25
+</td>
+<td style="text-align:left;">
+CLE
+</td>
+<td style="text-align:left;">
+CHI
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.517
+</td>
+<td style="text-align:right;">
+0.584
+</td>
+<td style="text-align:right;">
+0.679
+</td>
+<td style="text-align:right;">
+0.535
+</td>
+<td style="text-align:right;">
+0.460
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-25
+</td>
+<td style="text-align:left;">
+MIN
+</td>
+<td style="text-align:left;">
+OKC
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.357
+</td>
+<td style="text-align:right;">
+0.351
+</td>
+<td style="text-align:right;">
+0.758
+</td>
+<td style="text-align:right;">
+0.378
+</td>
+<td style="text-align:right;">
+0.380
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-25
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+LAL
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.540
+</td>
+<td style="text-align:right;">
+0.519
+</td>
+<td style="text-align:right;">
+0.509
+</td>
+<td style="text-align:right;">
+0.479
+</td>
+<td style="text-align:right;">
+0.451
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-26
+</td>
+<td style="text-align:left;">
+DEN
+</td>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.625
+</td>
+<td style="text-align:right;">
+0.637
+</td>
+<td style="text-align:right;">
+0.501
+</td>
+<td style="text-align:right;">
+0.586
+</td>
+<td style="text-align:right;">
+0.575
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-26
+</td>
+<td style="text-align:left;">
+SAS
+</td>
+<td style="text-align:left;">
+TOR
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.440
+</td>
+<td style="text-align:right;">
+0.432
+</td>
+<td style="text-align:right;">
+0.364
+</td>
+<td style="text-align:right;">
+0.361
+</td>
+<td style="text-align:right;">
+0.434
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-26
+</td>
+<td style="text-align:left;">
+ATL
+</td>
+<td style="text-align:left;">
+WAS
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.530
+</td>
+<td style="text-align:right;">
+0.521
+</td>
+<td style="text-align:right;">
+0.493
+</td>
+<td style="text-align:right;">
+0.558
+</td>
+<td style="text-align:right;">
+0.507
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-26
+</td>
+<td style="text-align:left;">
+MEM
+</td>
+<td style="text-align:left;">
+PHO
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.748
+</td>
+<td style="text-align:right;">
+0.769
+</td>
+<td style="text-align:right;">
+0.591
+</td>
+<td style="text-align:right;">
+0.644
+</td>
+<td style="text-align:right;">
+0.548
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-26
+</td>
+<td style="text-align:left;">
+NOP
+</td>
+<td style="text-align:left;">
+BOS
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.437
+</td>
+<td style="text-align:right;">
+0.410
+</td>
+<td style="text-align:right;">
+0.712
+</td>
+<td style="text-align:right;">
+0.324
+</td>
+<td style="text-align:right;">
+0.391
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-26
+</td>
+<td style="text-align:left;">
+NYK
+</td>
+<td style="text-align:left;">
+BRK
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.491
+</td>
+<td style="text-align:right;">
+0.518
+</td>
+<td style="text-align:right;">
+0.626
+</td>
+<td style="text-align:right;">
+0.552
+</td>
+<td style="text-align:right;">
+0.545
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-26
+</td>
+<td style="text-align:left;">
+ORL
+</td>
+<td style="text-align:left;">
+LAC
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.473
+</td>
+<td style="text-align:right;">
+0.468
+</td>
+<td style="text-align:right;">
+0.591
+</td>
+<td style="text-align:right;">
+0.366
+</td>
+<td style="text-align:right;">
+0.353
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-26
+</td>
+<td style="text-align:left;">
+POR
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.474
+</td>
+<td style="text-align:right;">
+0.476
+</td>
+<td style="text-align:right;">
+0.663
+</td>
+<td style="text-align:right;">
+0.390
+</td>
+<td style="text-align:right;">
+0.401
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="seasonal-model-accuracy" class="section level2">
+<h2>Seasonal Model Accuracy</h2>
+<p>This section compares how accurate my models are with FiveThirtyEight’s.</p>
+<div id="up-to-today" class="section level4">
+<h4>Up to Today</h4>
+<pre><code>## Parsed with column specification:
+## cols(
+##   index = col_character(),
+##   home_winpct = col_double(),
+##   home_overall = col_double(),
+##   home_vs_away_winpct = col_double(),
+##   v01 = col_double(),
+##   v02 = col_double(),
+##   elo = col_double(),
+##   `carm-elo` = col_double(),
+##   raptor = col_double()
+## )</code></pre>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <tbody>
 <tr grouplength="3">
 <td colspan="2" style="background-color: #666; color: #fff;">
@@ -1620,7 +1413,7 @@ IND @ POR
 Win Rate
 </td>
 <td style="text-align:right;">
-0.549
+0.548
 </td>
 </tr>
 <tr>
@@ -1628,7 +1421,7 @@ Win Rate
 Home %
 </td>
 <td style="text-align:right;">
-0.635
+0.637
 </td>
 </tr>
 <tr>
@@ -1636,7 +1429,7 @@ Home %
 Home % &gt; Away %
 </td>
 <td style="text-align:right;">
-0.644
+0.645
 </td>
 </tr>
 <tr grouplength="2">
@@ -1649,7 +1442,7 @@ Home % &gt; Away %
 v01
 </td>
 <td style="text-align:right;">
-0.657
+0.655
 </td>
 </tr>
 <tr>
@@ -1670,7 +1463,7 @@ elo
 carm-elo
 </td>
 <td style="text-align:right;">
-0.672
+0.671
 </td>
 </tr>
 <tr>
@@ -1678,7 +1471,7 @@ carm-elo
 raptor
 </td>
 <td style="text-align:right;">
-0.672
+0.671
 </td>
 </tr>
 <tr>
@@ -1691,31 +1484,380 @@ NA
 </tr>
 </tbody>
 </table>
-</div>
 <ul>
 <li>Win Rate: How often does the home team win?</li>
 <li>Home %: How often does the home team win when its win % before the game was more than 50%? (A home team with a record of 53% is predicted to win, butwith a record of 49% is predicted to lose.)</li>
-<li>Home % &gt; Away %: If the home team’s win % is greater than away team’s win %, the home team is predicted to win. Otherwise, they’re predicted to lose. E.g., if home win % = 0.39 and away win% = 0.39, it</li>
+<li>Home % &gt; Away %: If the home team’s win % is greater than away team’s win %, the home team is predicted to win. Otherwise, they’re predicted to lose. E.g., if home win % = 0.39 and away win% = 0.40, I predict the away team will win.</li>
+<li>v01: I build my own model.</li>
+<li>V02: Version 2 of my model.</li>
 </ul>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
 </div>
-<!--radix_placeholder_article_footer-->
-<!--/radix_placeholder_article_footer-->
+<div id="model-calibration" class="section level4">
+<h4>Model Calibration</h4>
+<p>How well do the model’s predictions align with true probabilities? A prediction of 70% should win 70% of the time.</p>
+<pre><code>## Parsed with column specification:
+## cols(
+##   index = col_character(),
+##   home_winpct = col_double(),
+##   home_overall = col_double(),
+##   home_vs_away_winpct = col_double(),
+##   v01 = col_double(),
+##   v02 = col_double(),
+##   elo = col_double(),
+##   `carm-elo` = col_double(),
+##   raptor = col_double()
+## )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+score_range
+</th>
+<th style="text-align:right;">
+home_winpct
+</th>
+<th style="text-align:right;">
+v01
+</th>
+<th style="text-align:right;">
+v02
+</th>
+<th style="text-align:right;">
+elo
+</th>
+<th style="text-align:right;">
+carm-elo
+</th>
+<th style="text-align:right;">
+raptor
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+all
+</td>
+<td style="text-align:right;">
+0.637
+</td>
+<td style="text-align:right;">
+0.655
+</td>
+<td style="text-align:right;">
+0.667
+</td>
+<td style="text-align:right;">
+0.671
+</td>
+<td style="text-align:right;">
+0.671
+</td>
+<td style="text-align:right;">
+0.654
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.0:0.1
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.1:0.2
+</td>
+<td style="text-align:right;">
+0.520
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.286
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.2:0.3
+</td>
+<td style="text-align:right;">
+0.296
+</td>
+<td style="text-align:right;">
+0.154
+</td>
+<td style="text-align:right;">
+0.182
+</td>
+<td style="text-align:right;">
+0.167
+</td>
+<td style="text-align:right;">
+0.382
+</td>
+<td style="text-align:right;">
+0.256
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.3:0.4
+</td>
+<td style="text-align:right;">
+0.424
+</td>
+<td style="text-align:right;">
+0.298
+</td>
+<td style="text-align:right;">
+0.288
+</td>
+<td style="text-align:right;">
+0.295
+</td>
+<td style="text-align:right;">
+0.279
+</td>
+<td style="text-align:right;">
+0.236
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.4:0.5
+</td>
+<td style="text-align:right;">
+0.435
+</td>
+<td style="text-align:right;">
+0.419
+</td>
+<td style="text-align:right;">
+0.376
+</td>
+<td style="text-align:right;">
+0.337
+</td>
+<td style="text-align:right;">
+0.365
+</td>
+<td style="text-align:right;">
+0.411
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.5:0.6
+</td>
+<td style="text-align:right;">
+0.581
+</td>
+<td style="text-align:right;">
+0.506
+</td>
+<td style="text-align:right;">
+0.497
+</td>
+<td style="text-align:right;">
+0.486
+</td>
+<td style="text-align:right;">
+0.546
+</td>
+<td style="text-align:right;">
+0.443
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.6:0.7
+</td>
+<td style="text-align:right;">
+0.765
+</td>
+<td style="text-align:right;">
+0.620
+</td>
+<td style="text-align:right;">
+0.655
+</td>
+<td style="text-align:right;">
+0.612
+</td>
+<td style="text-align:right;">
+0.567
+</td>
+<td style="text-align:right;">
+0.568
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.7:0.8
+</td>
+<td style="text-align:right;">
+0.688
+</td>
+<td style="text-align:right;">
+0.692
+</td>
+<td style="text-align:right;">
+0.716
+</td>
+<td style="text-align:right;">
+0.670
+</td>
+<td style="text-align:right;">
+0.661
+</td>
+<td style="text-align:right;">
+0.611
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.8:0.9
+</td>
+<td style="text-align:right;">
+0.839
+</td>
+<td style="text-align:right;">
+0.913
+</td>
+<td style="text-align:right;">
+0.895
+</td>
+<td style="text-align:right;">
+0.771
+</td>
+<td style="text-align:right;">
+0.729
+</td>
+<td style="text-align:right;">
+0.836
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.9:1.0
+</td>
+<td style="text-align:right;">
+0.500
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.958
+</td>
+<td style="text-align:right;">
+0.930
+</td>
+<td style="text-align:right;">
+0.865
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="model-accuracy-by-week" class="section level4">
+<h4>Model Accuracy By Week</h4>
+<pre><code>## Parsed with column specification:
+## cols(
+##   season_week = col_integer(),
+##   acc_pred_result_v01_prob1 = col_double(),
+##   acc_pred_result_v02_prob1 = col_double(),
+##   acc_pred_home_winpct = col_double(),
+##   acc_pred_elo = col_double(),
+##   `acc_pred_carm-elo` = col_double(),
+##   acc_pred_raptor = col_double()
+## )</code></pre>
+<pre><code>## Warning: Removed 6 rows containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>FiveThirtyEight’s predictions are updated daily and can be downloaded here: <a href="https://projects.fivethirtyeight.com/nba-model/nba_elo_latest.csv" class="uri">https://projects.fivethirtyeight.com/nba-model/nba_elo_latest.csv</a>.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
 
-<div class="d-appendix">
+
+
+
 </div>
 
+<script>
 
-<!--radix_placeholder_site_after_body-->
-<!--/radix_placeholder_site_after_body-->
-<!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
-<!--/radix_placeholder_appendices-->
-<!--radix_placeholder_navigation_after_body-->
-<!--/radix_placeholder_navigation_after_body-->
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 </body>
-
 </html>
