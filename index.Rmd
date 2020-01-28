@@ -117,15 +117,25 @@ The probabilities represent the home team's win probabilty. Result = 0 if the ho
 # Then tally up at the bottom
 color_pred_correct <- function(result, p){
   truth = (p > 0.5) & (result == 1)
-  c = formatter("span",
-      style = truth ~ style(color = ifelse(truth, "green", "red")),
-      truth ~ icontext(ifelse(truth, "ok", "remove"), ifelse(truth, p, p)))
+  p = formatter("span",
+      style = x ~ style(color = ifelse(truth, "green", "red")),
+      x ~ icontext(ifelse(truth, "ok", "remove"), ifelse(truth, p, p)))
+  return(p)
 }
 df_yesterday %>%
   # mutate(
-  #   elo = color_pred_correct(result, elo)
+  #   
   # ) %>%
-  kable('html', escape=F, digits=3) %>%
+  formattable(
+    list(
+      elo = formatter(
+        "span",
+        style = ~ style(color = ifelse((result == 1 & elo > 0.5) | (result == 0 & elo < 0.5), green, red)),
+        ~ icontext(ifelse((result == 1 & elo > 0.5) | (result == 0 & elo < 0.5), "ok", "remove"), percent(elo, 1))
+      )
+    )
+  ) #%>%
+  kable(escape=F, digits=3) %>%
   kable_styling(c('striped', 'hover'), full_width = F)
 ```
 
