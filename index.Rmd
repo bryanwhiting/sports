@@ -167,21 +167,43 @@ df %>%
 
 #### Model Accuracy By Week
 ```{r}
+plot_acc_by_week <- function(df, title, subtitle){
+  
+  df %>%
+    rename(`Home %` = home_winpct) %>%
+    gather(model, accuracy, -season_week) %>%
+    ggplot(aes(x=season_week, y = accuracy, color = model)) +
+    geom_line() +
+    geom_point() + 
+    geom_hline(yintercept=.5) +
+    ggthemes::scale_color_pander() + 
+    theme_minimal() + 
+    labs(title=title,
+         subtitle=subtitle,
+         x = 'Season Week',
+         y = "Model Accuracy",
+         caption = 'Source: FiveThirtyEight.com')
+}
+
+df = read_csv('../sports-predictions/output/acc_within_week.csv')
+colnames(df) %<>% gsub('acc_pred_[.]*', '', .)
+plot_acc_by_week(df, title = 'Accuracy of Model Within Season Week',
+                 subtitle = 'A score of .67 at week 5 is the accuracy of the model for all games within week 5.')
+
+```
+```{r}
 df = read_csv('../sports-predictions/output/acc_upto_week.csv')
 colnames(df) %<>% gsub('acc_pred_[.]*', '', .)
-df %>%
-  rename(`Home %` = home_winpct) %>%
-  gather(model, accuracy, -season_week) %>%
-  ggplot(aes(x=season_week, y = accuracy, color = model)) +
-  geom_line() +
-  geom_point() + 
-  geom_hline(yintercept=.5) +
-  ggthemes::scale_color_pander() + 
-  theme_minimal() + 
-  labs(title='Accuracy of Model Through Season Week',
-       subtitle='A score of .67 at week 5 is the accuracy of the model across weeks 1-5',
-       x = 'Season Week',
-       y = "Model Accuracy",
-       caption = 'Source: 538')
+plot_acc_by_week(df, title = 'Accuracy of Model Up To Season Week',
+                 subtitle = 'A score of .67 at week 5 is the accuracy of the model for all games from week 1-5.')
 ```
+
+```{r}
+df = read_csv('../sports-predictions/output/acc_since_week.csv')
+colnames(df) %<>% gsub('acc_pred_[.]*', '', .)
+plot_acc_by_week(df, title = 'Accuracy of Model Since Season Week',
+                 subtitle = 'A score of .67 at week 5 is the accuracy of the model for all games from week 5-X, where X is today\'s week.')
+```
+
+
 
