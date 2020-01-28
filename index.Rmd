@@ -11,7 +11,19 @@ install.load::install_load('dplyr', 'tidyverse', 'ggplot2', 'leaflet', 'kableExt
 # Learn more about creating websites with Distill at:
 # https://rstudio.github.io/distill/website.html
 
-css = "background-color: #0072B2; color: #fff;"
+#ggthemes::palette_pander(8)
+light_blue = "#56B4E9"
+green = "#009E73"
+green2 = "#00C073" # ppen apple Notes, cmd + shift + c for color pallete. I entered green, thens shifted the green slider right.
+green3 = "#00DD73"
+yellow = "#F0E442"
+dk_blue = "#0072B2"
+red = "#D55E00"
+pink="#CC79A7"
+gray ="#999999"
+orange = "#E69F00"
+
+css = paste0("background-color: ", dk_blue, "; color: #fff;")
 ```
 
 Each day I challenge [FiveThirtyEight's Raptor](https://projects.fivethirtyeight.com/2020-nba-predictions/games/) predictions[^1].
@@ -46,7 +58,7 @@ df_today = df %>%
 # Count number of games today for row packing
 n_today = sum(df_today$date == Sys.Date())
 
-date_today = format(Sys.Date(), '%a, %b %d')
+date_today = paste(format(Sys.Date(), '%a, %b %d'), "| Probability Home Team Wins, Home vs. Away")
 date_tom = format(Sys.Date() + 1, '%a, %b %d')
 
 # Format the prediction columns with formattabl
@@ -54,30 +66,46 @@ p_cols = df_today %>% select(-team1, -team2, -date)
 
 # TODO: https://www.displayr.com/formattable/
 color_pred = function(x){
+  # """ This works but not as well
   x = formattable::percent(x, digits=0)
   x = ifelse(x > 0.5,
-         color_tile('transparent', 'green')(x * c(x > 0.5)),
-         color_tile('red', 'transparent')(x * c(x < 0.5)))
+         color_tile('transparent', green)(x * c(x > 0.5)),
+         color_tile(red, 'transparent')(x * c(x < 0.5)))
   x
+}
+
+color_map = function(x){
+  cell_spec(
+      percent(x, 1), 
+      color = "white", # font color
+      bold = T,
+      background = case_when(
+        x > 0.65 ~ green, 
+        x < 0.65 & x >= 0.5 ~ green3,
+        x < 0.5 & x >= 0.35 ~ orange,
+        x < 0.35 ~ red,
+        TRUE ~ gray,
+        )
+      )
 }
 
 # https://stackoverflow.com/a/54748839/2138773
 df_today %>%
   select(-date) %>%
   mutate(
-    game = paste(team2, '@', team1),
-    elo = color_pred(elo),
-    `carm-elo` = color_pred(`carm-elo`),
-    raptor = color_pred(raptor),
-    v01 = color_pred(v01),
-    v02 = color_pred(v02),
-  ) %>%
+    game = paste(team1, 'vs', team2),
+    elo = color_map(elo),
+    `carm-elo` = color_map(`carm-elo`),
+    raptor = color_map(raptor),
+    v01 = color_map(v01),
+    v02 = color_map(v02)
+    ) %>%
   select(-team1, -team2) %>%
   select(game, everything()) %>%
   kable('html', escape=F) %>%
   kable_styling(c('striped', 'hover'), full_width = F) %>%
-  pack_rows(date_today, 1, n_today, label_row_css = css) %>%
-  pack_rows(date_tom, n_today+1, nrow(df_today), label_row_css = css) 
+    pack_rows(date_today, 1, n_today, label_row_css = css) %>%
+    pack_rows(date_tom, n_today+1, nrow(df_today), label_row_css = css) 
   
 ```
 
