@@ -33,7 +33,7 @@ Each day I challenge [FiveThirtyEight's Raptor](https://projects.fivethirtyeight
 
 ## Today and Tomorrow's Games
 The probabilities represent the home team's win probability.
-```{r}
+```{r readin}
 
 df = read_csv('../sports-predictions/output/all_scores.csv') %>%
   # ignore datetime - time zones mess things up anyway
@@ -111,17 +111,17 @@ df_today %>%
 
 ## Last Three Day's Predictions vs. Results
 The probabilities represent the home team's win probabilty. Result = 0 if the home team lost, 1 if it won.
-```{r}
+```{r last3}
 # TODO: https://www.displayr.com/formattable/
 # Get the green check for correct predictions - it's cool
 # Then tally up at the bottom
-color_pred_correct <- function(result, p){
-  truth = (p > 0.5) & (result == 1)
-  p = formatter("span",
-      style = x ~ style(color = ifelse(truth, "green", "red")),
-      x ~ icontext(ifelse(truth, "ok", "remove"), ifelse(truth, p, p)))
-  return(p)
-}
+# color_pred_correct <- function(result, p){
+#   truth = (p > 0.5) & (result == 1)
+#   p = formatter("span",
+#       style = x ~ style(color = ifelse(truth, "green", "red")),
+#       x ~ icontext(ifelse(truth, "ok", "remove"), ifelse(truth, p, p)))
+#   return(p)
+# }
 df_yesterday %>%
   # mutate(
   #   
@@ -135,8 +135,8 @@ df_yesterday %>%
       )
     )
   ) #%>%
-  kable(escape=F, digits=3) %>%
-  kable_styling(c('striped', 'hover'), full_width = F)
+  # kable(escape=F, digits=3) %>%
+  # kable_styling(c('striped', 'hover'), full_width = F)
 ```
 
 ## Seasonal Model Accuracy 
