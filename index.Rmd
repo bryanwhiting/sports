@@ -20,6 +20,7 @@ Each day I challenge [FiveThirtyEight's Raptor](https://projects.fivethirtyeight
 
 
 ## Today and Tomorrow's Games
+The probabilities represent the home team's win probability.
 ```{r}
 
 df = read_csv('../sports-predictions/output/all_scores.csv') %>%
@@ -81,6 +82,7 @@ df_today %>%
 ```
 
 ## Last Three Day's Predictions vs. Results
+The probabilities represent the home team's win probabilty. Result = 0 if the home team lost, 1 if it won.
 ```{r}
 # TODO: https://www.displayr.com/formattable/
 # Get the green check for correct predictions - it's cool
