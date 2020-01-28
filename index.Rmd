@@ -1,9 +1,8 @@
 ---
 title: "NBA Predictions"
 description: |
-  Comparing my models against 538 and some super-simple benchmarks
-site: 
-  distill::distill_website
+  Comparing my models against FiveThirtyEight and some super-simple benchmarks
+site: distill::distill_website
 ---
 
 ```{r setup, include=FALSE}
@@ -12,7 +11,7 @@ install.load::install_load('dplyr', 'tidyverse', 'ggplot2', 'leaflet', 'kableExt
 # Learn more about creating websites with Distill at:
 # https://rstudio.github.io/distill/website.html
 
-css = "background-color: #666; color: #fff;"
+css = "background-color: #0072B2; color: #fff;"
 ```
 
 Each day I challenge [FiveThirtyEight's Raptor](https://projects.fivethirtyeight.com/2020-nba-predictions/games/) predictions[^1].
