@@ -126,21 +126,37 @@ The probabilities represent the home team's win probabilty. Result = 0 if the ho
 #       x ~ icontext(ifelse(truth, "ok", "remove"), ifelse(truth, p, p)))
 #   return(p)
 # }
-df_yesterday %>%
-  # mutate(
-  #   
-  # ) %>%
-  formattable(
-    list(
-      elo = formatter(
-        "span",
-        style = ~ style(color = ifelse((result == 1 & elo > 0.5) | (result == 0 & elo < 0.5), green, red)),
-        ~ icontext(ifelse((result == 1 & elo > 0.5) | (result == 0 & elo < 0.5), "ok", "remove"), percent(elo, 1))
-      )
-    )
-  ) #%>%
+# df_yesterday %>%
+#   # mutate(
+#   #   
+#   # ) %>%
+#   formattable(
+#     list(
+#       elo = formatter(
+#         "span",
+#         style = ~ style(color = ifelse((result == 1 & elo > 0.5) | (result == 0 & elo < 0.5), green, red)),
+#         ~ icontext(ifelse((result == 1 & elo > 0.5) | (result == 0 & elo < 0.5), "ok", "remove"), percent(elo, 1))
+#       )
+#     )
+#   ) #%>%
   # kable(escape=F, digits=3) %>%
   # kable_styling(c('striped', 'hover'), full_width = F)
+
+# https://rstudio.github.io/DT/010-style.html
+library(DT)
+df_yesterday %>%
+  mutate(game = paste(team1, 'vs', team2)) %>%
+  select(date, game, result, elo, v02) %>%
+  datatable(style='default',
+            class = 'cell-border stripe',
+            rownames=F,
+            colnames = str_to_title(colnames(.)),
+            options = 
+              list(
+                pageLength=100,
+                dom = 'ft'
+              )) %>%
+  formatPercentage(c('elo', 'v02'))
 ```
 
 ## Seasonal Model Accuracy 
@@ -217,7 +233,9 @@ df %>%
   ggplot(aes(x = prob_range, y = avg_prob, color = model)) + 
   geom_line() + 
   geom_point() + 
-  geom_abline(intercept = -0.05, slope=1) + 
+  geom_abline(intercept = 0, slope=1, linetype=2, color='gray') + 
+  geom_abline(intercept = -0.05, slope=1, linetype=1, color='gray') + 
+  geom_abline(intercept = -0.1, slope=1, linetype=2, color='gray') + 
   ggthemes::scale_color_pander() +
   scale_x_continuous(breaks = seq(from = 0, to = 1, by = 0.2)) + 
   scale_y_continuous(breaks = seq(from = 0, to = 1, by = 0.2)) + 
