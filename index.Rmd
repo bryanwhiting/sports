@@ -49,7 +49,14 @@ colnames(df) %<>% gsub('result\\_[.]*', '', .)
 # Yesterday's Games
 df_yesterday = df %>% 
   filter(between(date, Sys.Date() -3, Sys.Date() - 1)) %>%
-  select(-starts_with('pg'), -season_week)
+  mutate(
+    indicator1 = ifelse(pg_score1 > pg_score2, '✓', ''),
+    indicator2 = ifelse(pg_score1 > pg_score2, '', '✓'),
+    game = paste0(indicator1, team1, ' (', pg_score1, ') ', indicator2, team2, ' (', pg_score2, ')'),
+    date = format(date, '%m-%d')
+         ) %>%
+  select(-team1, -team2, -starts_with('pg'), -season_week, -starts_with('indi')) %>%
+  select(date, game, everything())
 
 # Today's games
 df_today = df %>% 
@@ -144,9 +151,16 @@ The probabilities represent the home team's win probabilty. Result = 0 if the ho
 
 # https://rstudio.github.io/DT/010-style.html
 library(DT)
-df_yesterday %>%
-  mutate(game = paste(team1, 'vs', team2)) %>%
-  select(date, game, result, elo, v02) %>%
+models = c('elo', 'v02')
+for (mod in models){
+  mod_acc = paste0(mod, '_acc')
+  r = df_yesterday$result
+  m = df_yesterday[[mod]]
+  df_yesterday[[mod_acc]] = as.numeric((r==0 & m < 0.5) | (r == 1 & m > 0.5)) 
+}
+
+dt <- df_yesterday %>%
+  select(date, game, result, !!models, ends_with('_acc')) %>%
   datatable(style='default',
             class = 'cell-border stripe',
             rownames=F,
@@ -154,9 +168,26 @@ df_yesterday %>%
             options = 
               list(
                 pageLength=100,
-                dom = 'ft'
+                dom = 'ft',
+                columnDefs = list(
+                  list(
+                    # Hide columns with _acc, this is zero-indexed (hence -1)
+                    targets = which(colnames(.) %>% str_detect('_acc$|result')) - 1, 
+                    visible = F
+                  ))
               )) %>%
-  formatPercentage(c('elo', 'v02'))
+  formatPercentage(models) 
+  # For every model to be shown, hide the _acc column and color the model col
+for (mod in models){
+  mod_acc = paste0(mod, '_acc')
+  dt %<>% formatStyle(
+    mod, mod_acc,
+    color = 'white',
+    fontWeight = 'bold',
+    backgroundColor = styleEqual(c(0, 1), c(red, green))
+  ) 
+}
+dt
 ```
 
 ## Seasonal Model Accuracy 
