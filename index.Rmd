@@ -155,17 +155,27 @@ The probabilities represent the home team's win probabilty. Result = 0 if the ho
 # https://rstudio.github.io/DT/010-style.html
 library(DT)
 models = c('elo', 'v02')
+mod_accs = c()
 for (mod in models){
   mod_acc = paste0(mod, '_acc')
   r = df_yesterday$result
   m = df_yesterday[[mod]]
   df_yesterday[[mod_acc]] = as.numeric((r==0 & m < 0.5) | (r == 1 & m > 0.5)) 
+  mod_accs = c(mod_accs, mod_acc)
 }
 
+
+total_sums = df_yesterday %>% select(!!mod_accs) %>% apply(2, sum)
+sketch = htmltools::withTags(table(
+  # tableHeader(c(')),
+  tableFooter(c('', 'Total', total_sums))
+))
+
 dt <- df_yesterday %>%
-  select(date, game, result, !!models, ends_with('_acc')) %>%
+  select(date, game, !!models, ends_with('_acc')) %>%
   datatable(style='default',
             escape=F,
+            container=sketch,
             class = 'cell-border stripe',
             rownames=F,
             colnames = str_to_title(colnames(.)),
