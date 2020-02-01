@@ -53,7 +53,7 @@ df_yesterday = df %>%
   mutate(
     indicator1 = ifelse(pg_score1 > pg_score2, check, ' '),
     indicator2 = ifelse(pg_score1 > pg_score2, ' ', check),
-    game = paste0(indicator1, team1, ' (', pg_score1, ') | ', indicator2, team2, ' (', pg_score2, ')'),
+    game = paste0(indicator1, team1, ' (', pg_score1, ') | ', team2, ' (', pg_score2, ')', indicator2),
     date = format(date, '%m-%d')
          ) %>%
   select(-team1, -team2, -starts_with('pg'), -season_week, -starts_with('indi')) %>%
@@ -168,7 +168,7 @@ for (mod in models){
 total_sums = df_yesterday %>% select(!!mod_accs) %>% apply(2, sum)
 sketch = htmltools::withTags(table(
   # tableHeader(c(')),
-  tableFooter(c('', 'Total', total_sums))
+  tableFooter(c('', 'Total Correct', total_sums))
 ))
 
 dt <- df_yesterday %>%
