@@ -14,14 +14,8 @@ install.load::install_load('dplyr', 'tidyverse', 'ggplot2', 'leaflet', 'kableExt
 
 get_path <- function(fn){
   #. Copy file from python's output to this site's folder (for git versioning)
-  # hidden directory for data build
-  dir_output = '../output/'
-  fp_out = file.path(dir_output, fn)
-  # Copy to this rmarkdown directory
   dir_data = 'data/'
-  fp_new = file.path(dir_data, fn)
-  file.copy(fp_out, fp_new)
-  return(fp_new)
+  file.path(dir_data, fn)
 }
 
 
