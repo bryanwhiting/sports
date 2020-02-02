@@ -7,7 +7,10 @@ site: distill::distill_website
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-install.load::install_load('dplyr', 'tidyr', 'ggplot2', 'leaflet', 'kableExtra', 'flexdashboard', 'shiny', 'magrittr', 'lubridate', 'formattable')
+library('tidyr')
+# leaflet
+# flexdashboard
+install.load::install_load('dplyr', 'htmltools','knitr', 'tidyr', 'ggplot2', 'kable', 'kableExtra', 'shiny', 'magrittr', 'lubridate', 'formattable', 'ggthemes')
 # Learn more about creating websites with Distill at:
 # https://rstudio.github.io/distill/website.html
 
@@ -35,6 +38,7 @@ css = paste0("background-color: ", dk_blue, "; color: #fff;")
 ```
 
 Each day I challenge [FiveThirtyEight's Raptor](https://projects.fivethirtyeight.com/2020-nba-predictions/games/) predictions[^1].
+Last updated `r as.POSIXlt(Sys.time(), "America/New_York", format="%Y-%m-%d %H:%M") `.
 
 [^1]:FiveThirtyEight's predictions are updated daily and can be downloaded here: https://projects.fivethirtyeight.com/nba-model/nba_elo_latest.csv.
 
@@ -173,7 +177,7 @@ for (mod in models){
 
 total_sums = df_yesterday %>% select(!!mod_accs) %>% apply(2, sum)
 sketch = htmltools::withTags(table(
-  # tableHeader(c(')),
+  tableHeader(c('Date', 'Game', 'Elo', 'V02')),
   tableFooter(c('', 'Total Correct', total_sums))
 ))
 
