@@ -6,18 +6,16 @@ site: distill::distill_website
 ---
 
 ```{r setup, include=FALSE}
+source('packages.R')
 knitr::opts_chunk$set(echo = FALSE)
-library('tidyr')
-# leaflet
-# flexdashboard
-install.load::install_load('dplyr', 'htmltools','knitr', 'tidyr', 'ggplot2', 'kable', 'kableExtra', 'shiny', 'magrittr', 'lubridate', 'formattable', 'ggthemes')
+
 # Learn more about creating websites with Distill at:
 # https://rstudio.github.io/distill/website.html
 
 
 get_path <- function(fn){
   #. Copy file from python's output to this site's folder (for git versioning)
-  dir_data = 'data/'
+  dir_data = 'data'
   file.path(dir_data, fn)
 }
 
