@@ -1,7 +1,7 @@
 ---
 title: "NBA Predictions"
 description: |
-  Comparing my models against FiveThirtyEight and some super-simple benchmarks
+  Comparing my models against FiveThirtyEight
 site: distill::distill_website
 ---
 
@@ -33,10 +33,14 @@ gray ="#999999"
 orange = "#E69F00"
 
 css = paste0("background-color: ", dk_blue, "; color: #fff;")
-```
 
-Each day I challenge [FiveThirtyEight's Raptor](https://projects.fivethirtyeight.com/2020-nba-predictions/games/) predictions[^1].
-Last updated `r as.POSIXlt(Sys.time(), "America/New_York", format="%Y-%m-%d %H:%M") `.
+models = c('elo', 'v02')
+
+```
+> Last updated `r format(now("EST"), '%a, %b %d %I:%M %p')`
+
+Each morning I challenge [FiveThirtyEight's Raptor](https://projects.fivethirtyeight.com/2020-nba-predictions/games/) predictions[^1] and compare them against some super-simple benchmarks.
+
 
 [^1]:FiveThirtyEight's predictions are updated daily and can be downloaded here: https://projects.fivethirtyeight.com/nba-model/nba_elo_latest.csv.
 
@@ -55,6 +59,68 @@ df = read_csv(get_path('all_scores.csv')) %>%
 colnames(df) %<>% gsub('[.]*\\_prob1', '', .)
 colnames(df) %<>% gsub('result\\_[.]*', '', .)
 
+# Today's games
+df_today = df %>% 
+  filter(between(date, Sys.Date(), Sys.Date() + 1)) %>%
+  select(-result, -starts_with('pg'), -season_week) %>%
+  mutate(game = paste0(team1, ' vs. ', team2),
+         date = format(date, format='%a, %b %d')) %>%
+  select(date, game, !!models)
+ 
+
+# Header formatting:
+# Header row: https://stackoverflow.com/a/53658138/2138773
+head_format = JS(
+    "function(settings, json) {",
+    paste0("$(this.api().table().header()).css({'font-size': '10pt', 'background-color': '", dk_blue,"', 'color': '#fff'});"),
+    "}")
+
+dt <- df_today %>%
+  datatable(style='default',
+            escape=F,
+            #container=sketch,
+            class = 'cell-border stripe',
+            rownames=F,
+            colnames = str_to_upper(colnames(.)),
+            options = 
+              list(
+                # Header formatting
+                initComplete = head_format,
+                pageLength=100,
+                dom = 'ft',
+                rowsGroup=list(0),
+                columnDefs = list(
+                  list(
+                    className = 'dt-center', targets= 0:3
+                  ))
+              )) %>%
+  formatPercentage(models) 
+  # For every model to be shown, hide the _acc column and color the model col
+for (mod in models){
+  dt %<>% formatStyle(
+    mod,
+    color = 'white',
+    fontWeight = 'bold',
+    backgroundColor = styleInterval(
+      cuts = c(0.4, .5, 0.6), 
+      values = c(red, orange, light_blue, dk_blue))
+  ) 
+}
+rowGroupDep <- htmltools::htmlDependency(
+      name="RowsGroup", version="2.0.0", 
+      src='www', script = "dataTables.rowsGroup.js")
+dt$dependencies = c(dt$dependencies, list(rowGroupDep))
+
+
+dt
+  
+```
+
+## Last Three Day's Predictions vs. Results
+The home team win's probability is colored green if the model correctly predicted the home team winning. 
+
+```{r last3}
+
 # Yesterday's Games
 check = paste0('<font color="', green,'"><strong>✓</strong></font>')
 df_yesterday = df %>% 
@@ -63,106 +129,13 @@ df_yesterday = df %>%
     indicator1 = ifelse(pg_score1 > pg_score2, check, ' '),
     indicator2 = ifelse(pg_score1 > pg_score2, ' ', check),
     game = paste0(indicator1, team1, ' (', pg_score1, ') | ', team2, ' (', pg_score2, ')', indicator2),
-    date = format(date, '%m-%d')
+    date = format(date, format='%a, %b %d')
          ) %>%
   select(-team1, -team2, -starts_with('pg'), -season_week, -starts_with('indi')) %>%
   select(date, game, everything())
 
-# Today's games
-df_today = df %>% 
-  filter(between(date, Sys.Date(), Sys.Date() + 1)) %>%
-  select(-result, -starts_with('pg'), -season_week)
-  
-
-# Count number of games today for row packing
-n_today = sum(df_today$date == Sys.Date())
-
-date_today = paste(format(Sys.Date(), '%a, %b %d'), "| Probability Home Team Wins, Home vs. Away")
-date_tom = format(Sys.Date() + 1, '%a, %b %d')
-
-# Format the prediction columns with formattabl
-p_cols = df_today %>% select(-team1, -team2, -date)
-
-# TODO: https://www.displayr.com/formattable/
-color_pred = function(x){
-  # """ This works but not as well
-  x = formattable::percent(x, digits=0)
-  x = ifelse(x > 0.5,
-         color_tile('transparent', green)(x * c(x > 0.5)),
-         color_tile(red, 'transparent')(x * c(x < 0.5)))
-  x
-}
-
-color_map = function(x){
-  cell_spec(
-      percent(x, 1), 
-      color = "white", # font color
-      bold = T,
-      background = case_when(
-        # x > 0.65 ~ green, 
-        x > 0.65 ~ dk_blue, 
-        # x < 0.65 & x >= 0.5 ~ green3,
-        x < 0.65 & x >= 0.5 ~ light_blue,
-        x < 0.5 & x >= 0.35 ~ orange,
-        x < 0.35 ~ red,
-        TRUE ~ gray,
-        )
-      )
-}
-
-# https://stackoverflow.com/a/54748839/2138773
-df_today %>%
-  select(-date) %>%
-  mutate(
-    game = paste(team1, 'vs', team2),
-    elo = color_map(elo),
-    `carm-elo` = color_map(`carm-elo`),
-    raptor = color_map(raptor),
-    v01 = color_map(v01),
-    v02 = color_map(v02)
-    ) %>%
-  select(-team1, -team2) %>%
-  select(game, everything()) %>%
-  kable('html', escape=F) %>%
-  kable_styling(c('striped', 'hover'), full_width = F) %>%
-    pack_rows(date_today, 1, n_today, label_row_css = css) %>%
-    pack_rows(date_tom, n_today+1, nrow(df_today), label_row_css = css) 
-  
-```
-
-## Last Three Day's Predictions vs. Results
-The home team win's probability is colored green if the model correctly predicted the home team winning. 
-
-```{r last3}
-# TODO: https://www.displayr.com/formattable/
-# Get the green check for correct predictions - it's cool
-# Then tally up at the bottom
-# color_pred_correct <- function(result, p){
-#   truth = (p > 0.5) & (result == 1)
-#   p = formatter("span",
-#       style = x ~ style(color = ifelse(truth, "green", "red")),
-#       x ~ icontext(ifelse(truth, "ok", "remove"), ifelse(truth, p, p)))
-#   return(p)
-# }
-# df_yesterday %>%
-#   # mutate(
-#   #   
-#   # ) %>%
-#   formattable(
-#     list(
-#       elo = formatter(
-#         "span",
-#         style = ~ style(color = ifelse((result == 1 & elo > 0.5) | (result == 0 & elo < 0.5), green, red)),
-#         ~ icontext(ifelse((result == 1 & elo > 0.5) | (result == 0 & elo < 0.5), "ok", "remove"), percent(elo, 1))
-#       )
-#     )
-#   ) #%>%
-  # kable(escape=F, digits=3) %>%
-  # kable_styling(c('striped', 'hover'), full_width = F)
 
 # https://rstudio.github.io/DT/010-style.html
-library(DT)
-models = c('elo', 'v02')
 mod_accs = c()
 for (mod in models){
   mod_acc = paste0(mod, '_acc')
@@ -171,7 +144,6 @@ for (mod in models){
   df_yesterday[[mod_acc]] = as.numeric((r==0 & m < 0.5) | (r == 1 & m > 0.5)) 
   mod_accs = c(mod_accs, mod_acc)
 }
-
 
 total_sums = df_yesterday %>% select(!!mod_accs) %>% apply(2, sum)
 sketch = htmltools::withTags(table(
@@ -189,8 +161,11 @@ dt <- df_yesterday %>%
             colnames = str_to_title(colnames(.)),
             options = 
               list(
+                # Header formatting
+                initComplete = head_format,
                 pageLength=100,
                 dom = 'ft',
+                rowsGroup = list(0),
                 columnDefs = list(
                   list(
                     className = 'dt-center', targets= 0:4
@@ -212,6 +187,7 @@ for (mod in models){
     backgroundColor = styleEqual(c(0, 1), c(gray, green))
   ) 
 }
+dt$dependencies = c(dt$dependencies, list(rowGroupDep))
 dt
 ```
 
@@ -248,7 +224,7 @@ all = all %>% select(home_overall, everything())
 
 # TODO: https://haozhu233.github.io/kableExtra/awesome_table_in_html.html#integration_with_formattable
 # add better cloring
-colnames(all) = c("Win Rate", "Home %", "Home % > Away %", "v01", "elo", "carm-elo", "raptor")
+colnames(all) = c("Win Rate", "Home %", "Home % > Away %", "v01", 'v02', "elo", "carm-elo", "raptor")
 all %>%
   t() %>%
   # as.data.frame() %>%

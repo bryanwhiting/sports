@@ -21,27 +21,27 @@
   <!--radix_placeholder_meta_tags-->
   <title>Sports Predictions: NBA Predictions</title>
   
-  <meta property="description" itemprop="description" content="Comparing my models against FiveThirtyEight and some super-simple benchmarks"/>
+  <meta property="description" itemprop="description" content="Comparing my models against FiveThirtyEight"/>
   
   
   
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Sports Predictions: NBA Predictions"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Comparing my models against FiveThirtyEight and some super-simple benchmarks"/>
+  <meta property="og:description" content="Comparing my models against FiveThirtyEight"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Sports Predictions"/>
   
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Sports Predictions: NBA Predictions"/>
-  <meta property="twitter:description" content="Comparing my models against FiveThirtyEight and some super-simple benchmarks"/>
+  <meta property="twitter:description" content="Comparing my models against FiveThirtyEight"/>
   
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["NBA Predictions"]},{"type":"character","attributes":{},"value":["Comparing my models against FiveThirtyEight and some super-simple benchmarks\n"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["NBA Predictions"]},{"type":"character","attributes":{},"value":["Comparing my models against FiveThirtyEight\n"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -1257,7 +1257,6 @@
   </script>
   
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
   <script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
   <script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
   <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
@@ -1267,6 +1266,8 @@
   <script src="site_libs/dt-core-1.10.19/js/jquery.dataTables.min.js"></script>
   <link href="site_libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
   <script src="site_libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+  <script src="site_libs/RowsGroup-2.0.0/dataTables.rowsGroup.js"></script>
+  <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
   <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="site_libs/distill-2.2.21/template.v2.js"></script>
@@ -1319,7 +1320,7 @@
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"NBA Predictions","description":"Comparing my models against FiveThirtyEight and some super-simple benchmarks","authors":[]}
+{"title":"NBA Predictions","description":"Comparing my models against FiveThirtyEight","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1342,7 +1343,7 @@
 
 <div class="d-title">
 <h1>NBA Predictions</h1>
-<p>Comparing my models against FiveThirtyEight and some super-simple benchmarks</p>
+<p>Comparing my models against FiveThirtyEight</p>
 </div>
 
 
@@ -1356,612 +1357,21 @@
 </ul>
 </nav>
 <hr class="d-toc-separator"/>
-<p>Each day I challenge <a href="https://projects.fivethirtyeight.com/2020-nba-predictions/games/">FiveThirtyEight’s Raptor</a> predictions<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Last updated 2020-02-02 11:07:40.</p>
+<blockquote>
+<p>Last updated Sun, Feb 02 03:58 PM</p>
+</blockquote>
+<p>Each morning I challenge <a href="https://projects.fivethirtyeight.com/2020-nba-predictions/games/">FiveThirtyEight’s Raptor</a> predictions<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and compare them against some super-simple benchmarks.</p>
 <h2 id="today-and-tomorrows-games">Today and Tomorrow’s Games</h2>
 <p>Upcoming games for the home team’s win probability. Blue represents an expected win for the home team (score &gt; 50%) and orange/red represents an expected loss. <code>elo</code> is the FiveThirtyEight model and <code>V02</code> is my model.</p>
 <div class="layout-chunk" data-layout="l-body">
-<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-game
-</th>
-<th style="text-align:left;">
-elo
-</th>
-<th style="text-align:left;">
-carm-elo
-</th>
-<th style="text-align:left;">
-raptor
-</th>
-<th style="text-align:left;">
-v01
-</th>
-<th style="text-align:left;">
-v02
-</th>
-</tr>
-</thead>
-<tbody>
-<tr grouplength="8">
-<td colspan="6" style="background-color: #0072B2; color: #fff;">
-<strong>Sun, Feb 02 | Probability Home Team Wins, Home vs. Away</strong>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-DET vs DEN
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">31.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">31.8%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">35.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">27.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">37.6%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-HOU vs NOP
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">74.1%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">76.0%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">71.8%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">74.4%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">69.5%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-MIL vs PHO
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">90.0%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">91.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">81.8%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">83.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">82.3%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-TOR vs CHI
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">90.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">91.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">86.3%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">85.4%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">84.8%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-CHO vs ORL
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">49.1%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">46.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">33.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">54.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">43.5%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-CLE vs NYK
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">54.7%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">55.5%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">65.7%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">59.2%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">51.3%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-IND vs DAL
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">63.5%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">63.5%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">65.7%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">59.2%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">53.5%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-WAS vs GSW
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">68.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">66.7%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">69.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">71.4%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">65.3%</span>
-</td>
-</tr>
-<tr grouplength="20">
-<td colspan="6" style="background-color: #0072B2; color: #fff;">
-<strong>Mon, Feb 03</strong>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-ATL vs BOS
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">26.1%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">24.5%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">42.7%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">27.1%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">23.5%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-BRK vs PHO
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">61.3%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">69.8%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">66.3%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">68.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">55.8%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-MIA vs PHI
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">65.2%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">65.4%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">48.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">66.5%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">63.6%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-MEM vs DET
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">78.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">83.2%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">80.1%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">59.0%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">64.2%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-SAC vs MIN
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">73.8%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">73.4%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">59.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">71.2%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">69.8%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-LAC vs SAS
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">71.7%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">71.7%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">88.0%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">80.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">77.4%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-DET vs DEN
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">31.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">31.8%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">36.3%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">27.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">37.6%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-HOU vs NOP
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">74.1%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">76.0%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">71.7%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">74.4%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">69.5%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-MIL vs PHO
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">90.0%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">91.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">81.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">83.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">82.3%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-TOR vs CHI
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">90.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">91.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">86.2%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">85.4%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">84.8%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-CHO vs ORL
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">49.1%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">46.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">34.2%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">60.2%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">46.0%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-CLE vs NYK
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">54.7%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">55.5%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">66.3%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">60.2%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">61.4%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-IND vs DAL
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">63.5%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">63.5%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">67.1%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">60.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">55.9%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-WAS vs GSW
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">68.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">66.7%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">69.8%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">60.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">60.3%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-ATL vs BOS
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">26.1%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D55E00 !important;">24.5%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">43.8%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">60.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">45.4%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-BRK vs PHO
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">61.3%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">69.8%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">68.0%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">61.0%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">59.6%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-MIA vs PHI
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">65.2%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">65.4%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #E69F00 !important;">48.8%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">61.1%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">56.8%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-MEM vs DET
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">78.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">83.2%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">79.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">59.0%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">64.2%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-SAC vs MIN
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">73.8%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">73.4%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">58.6%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">59.4%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">68.6%</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
-LAC vs SAS
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">71.7%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">71.7%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #0072B2 !important;">88.2%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">60.9%</span>
-</td>
-<td style="text-align:left;">
-<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #56B4E9 !important;">64.3%</span>
-</td>
-</tr>
-</tbody>
-</table>
+<div id="htmlwidget-11de8b1e967bec319c09" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-11de8b1e967bec319c09">{"x":{"filter":"none","data":[["Sun, Feb 02","Sun, Feb 02","Sun, Feb 02","Sun, Feb 02","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03"],["DET vs. DEN","HOU vs. NOP","MIL vs. PHO","TOR vs. CHI","CHO vs. ORL","CLE vs. NYK","IND vs. DAL","WAS vs. GSW","ATL vs. BOS","BRK vs. PHO","MIA vs. PHI","MEM vs. DET","SAC vs. MIN","LAC vs. SAS"],[0.316416475501979,0.741355512762872,0.899599506984628,0.905522274480624,0.491177826445056,0.54708396471456,0.634667841464717,0.686313526804815,0.26102858329583,0.612546553534326,0.652141067381175,0.786380590357338,0.737660035531127,0.716829418377678],[0.37566817,0.69502705,0.82276446,0.8478197,0.43532714,0.5127394,0.53461164,0.65317535,0.23453926,0.5581515,0.636477,0.6419421,0.6976038,0.7743101]],"container":"<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th>DATE<\/th>\n      <th>GAME<\/th>\n      <th>ELO<\/th>\n      <th>V02<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'font-size': '10pt', 'background-color': '#0072B2', 'color': '#fff'});\n}","pageLength":100,"dom":"ft","rowsGroup":[0],"columnDefs":[{"className":"dt-center","targets":[0,1,2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 2, 0, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 3, 0, 3, \",\", \".\");\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'font-weight':'bold','color':'white','background-color':isNaN(parseFloat(value)) ? '' : value <= 0.4 ? \"#D55E00\" : value <= 0.5 ? \"#E69F00\" : value <= 0.6 ? \"#56B4E9\" : \"#0072B2\"});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'font-weight':'bold','color':'white','background-color':isNaN(parseFloat(value)) ? '' : value <= 0.4 ? \"#D55E00\" : value <= 0.5 ? \"#E69F00\" : value <= 0.6 ? \"#56B4E9\" : \"#0072B2\"});\n}"}},"evals":["options.initComplete","options.rowCallback"],"jsHooks":[]}</script>
 </div>
 <h2 id="last-three-days-predictions-vs.results">Last Three Day’s Predictions vs. Results</h2>
 <p>The home team win’s probability is colored green if the model correctly predicted the home team winning.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div id="htmlwidget-ec8cf98bff00b5473bfb" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ec8cf98bff00b5473bfb">{"x":{"filter":"none","class":"cell-border stripe","data":[["01-30","01-30","01-30","01-30","01-30","01-30","01-31","01-31","01-31","01-31","01-31","01-31","01-31","02-01","02-01","02-01","02-01","02-01","02-01","02-01","02-01","02-01","02-01","02-01","02-01","02-01","02-01","02-01","02-01","02-01","02-01","02-01","02-01"],[" CLE (109) | TOR (115)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>WAS (121) | CHO (107) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>ATL (127) | PHI (117) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>BOS (119) | GSW (104) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>DEN (106) | UTA (100) "," LAC (103) | SAC (124)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," DET (92) | TOR (105)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>BRK (133) | CHI (118) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>HOU (128) | DAL (121) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>NOP (139) | MEM (111) "," MIL (115) | DEN (127)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," PHO (107) | OKC (111)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," LAL (119) | POR (127)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>LAC (118) | MIN (106) "," IND (85) | NYK (92)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," ORL (89) | MIA (102)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," CLE (112) | GSW (131)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>WAS (113) | BRK (107) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>BOS (116) | PHI (95) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>DAL (123) | ATL (100) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>SAS (114) | CHO (90) "," SAC (113) | LAL (129)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>POR (124) | UTA (107) ","NALAC (NA) | MIN (NA)NA","NAIND (NA) | NYK (NA)NA","NAORL (NA) | MIA (NA)NA","NACLE (NA) | GSW (NA)NA","NAWAS (NA) | BRK (NA)NA","NABOS (NA) | PHI (NA)NA","NADAL (NA) | ATL (NA)NA","NASAS (NA) | CHO (NA)NA","NASAC (NA) | LAL (NA)NA","NAPOR (NA) | UTA (NA)NA"],[0.17127610881446,0.661645863335496,0.271404827517714,0.894232776465956,0.573273540794791,0.849270137279073,0.253752795014681,0.682247177124323,0.67734951809933,0.612645077091973,0.82010909595225,0.439923406602516,0.810869818419069,0.857783461755035,0.888084329234193,0.49531774202023,0.572975716686479,0.583327374225056,0.679115584544127,0.855251482429056,0.818365065421128,0.400527934099489,0.484855806241918,0.857783461755035,0.888084329234193,0.49531774202023,0.572975716686479,0.583327374225056,0.679115584544127,0.855251482429056,0.818365065421128,0.400527934099489,0.484855806241918],[0.26038167,0.6151142,0.33099174,0.86564356,0.49770615,0.8684282,0.36349067,0.56071305,0.51369715,0.52911294,0.72774154,0.3651153,0.8306421,0.80994487,0.8568943,0.45358038,0.55644596,0.52313834,0.6315929,0.836878,0.74202216,0.41074952,0.43281633,0.80994487,0.8568943,0.45358038,0.55644596,0.52313834,0.6315929,0.836878,0.74202216,0.41074952,0.43281633],[1,1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,0],[1,1,0,1,0,0,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,0]],"container":"<table>\n  <thead>\n    <tr>\n      <th>Date<\/th>\n      <th>Game<\/th>\n      <th>Elo<\/th>\n      <th>V02<\/th>\n    <\/tr>\n  <\/thead>\n  <tfoot>\n    <tr>\n      <th><\/th>\n      <th>Total Correct<\/th>\n      <th>23<\/th>\n      <th>22<\/th>\n    <\/tr>\n  <\/tfoot>\n<\/table>","options":{"pageLength":100,"dom":"ft","columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4]},{"targets":[4,5],"visible":false},{"className":"dt-right","targets":5}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 2, 0, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 3, 0, 3, \",\", \".\");\nvar value=data[4]; $(this.api().cell(row, 2).node()).css({'font-weight':'bold','color':'white','background-color':value == 0 ? \"#999999\" : value == 1 ? \"#009E73\" : value});\nvar value=data[5]; $(this.api().cell(row, 3).node()).css({'font-weight':'bold','color':'white','background-color':value == 0 ? \"#999999\" : value == 1 ? \"#009E73\" : value});\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+<div id="htmlwidget-797063735c0a4c717bc4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-797063735c0a4c717bc4">{"x":{"filter":"none","class":"cell-border stripe","data":[["Thu, Jan 30","Thu, Jan 30","Thu, Jan 30","Thu, Jan 30","Thu, Jan 30","Thu, Jan 30","Fri, Jan 31","Fri, Jan 31","Fri, Jan 31","Fri, Jan 31","Fri, Jan 31","Fri, Jan 31","Fri, Jan 31","Sat, Feb 01","Sat, Feb 01","Sat, Feb 01","Sat, Feb 01","Sat, Feb 01","Sat, Feb 01","Sat, Feb 01","Sat, Feb 01","Sat, Feb 01","Sat, Feb 01"],[" CLE (109) | TOR (115)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>WAS (121) | CHO (107) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>ATL (127) | PHI (117) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>BOS (119) | GSW (104) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>DEN (106) | UTA (100) "," LAC (103) | SAC (124)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," DET (92) | TOR (105)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>BRK (133) | CHI (118) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>HOU (128) | DAL (121) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>NOP (139) | MEM (111) "," MIL (115) | DEN (127)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," PHO (107) | OKC (111)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," LAL (119) | POR (127)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>LAC (118) | MIN (106) "," IND (85) | NYK (92)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," ORL (89) | MIA (102)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," CLE (112) | GSW (131)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>WAS (113) | BRK (107) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>BOS (116) | PHI (95) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>DAL (123) | ATL (100) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>SAS (114) | CHO (90) "," SAC (113) | LAL (129)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>POR (124) | UTA (107) "],[0.17127610881446,0.661645863335496,0.271404827517714,0.894232776465956,0.573273540794791,0.849270137279073,0.253752795014681,0.682247177124323,0.67734951809933,0.612645077091973,0.82010909595225,0.439923406602516,0.810869818419069,0.857783461755035,0.888084329234193,0.49531774202023,0.572975716686479,0.583327374225056,0.679115584544127,0.855251482429056,0.818365065421128,0.400527934099489,0.484855806241918],[0.26038167,0.6151142,0.33099174,0.86564356,0.49770615,0.8684282,0.36349067,0.56071305,0.51369715,0.52911294,0.72774154,0.3651153,0.8306421,0.80994487,0.8568943,0.45358038,0.55644596,0.52313834,0.6315929,0.836878,0.74202216,0.41074952,0.43281633],[1,1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,0],[1,1,0,1,0,0,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,0]],"container":"<table>\n  <thead>\n    <tr>\n      <th>Date<\/th>\n      <th>Game<\/th>\n      <th>Elo<\/th>\n      <th>V02<\/th>\n    <\/tr>\n  <\/thead>\n  <tfoot>\n    <tr>\n      <th><\/th>\n      <th>Total Correct<\/th>\n      <th>16<\/th>\n      <th>15<\/th>\n    <\/tr>\n  <\/tfoot>\n<\/table>","options":{"initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'font-size': '10pt', 'background-color': '#0072B2', 'color': '#fff'});\n}","pageLength":100,"dom":"ft","rowsGroup":[0],"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4]},{"targets":[4,5],"visible":false},{"className":"dt-right","targets":5}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 2, 0, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 3, 0, 3, \",\", \".\");\nvar value=data[4]; $(this.api().cell(row, 2).node()).css({'font-weight':'bold','color':'white','background-color':value == 0 ? \"#999999\" : value == 1 ? \"#009E73\" : value});\nvar value=data[5]; $(this.api().cell(row, 3).node()).css({'font-weight':'bold','color':'white','background-color':value == 0 ? \"#999999\" : value == 1 ? \"#009E73\" : value});\n}"}},"evals":["options.initComplete","options.rowCallback"],"jsHooks":[]}</script>
 </div>
 <h2 id="seasonal-model-accuracy">Seasonal Model Accuracy</h2>
 <p>This section compares how accurate my models are with FiveThirtyEight’s.</p>
@@ -1979,7 +1389,7 @@ LAC vs SAS
 Win Rate
 </td>
 <td style="text-align:right;">
-NA
+0.551
 </td>
 </tr>
 <tr>
@@ -1987,7 +1397,7 @@ NA
 Home %
 </td>
 <td style="text-align:right;">
-NA
+0.627
 </td>
 </tr>
 <tr>
@@ -1995,7 +1405,7 @@ NA
 Home % &gt; Away %
 </td>
 <td style="text-align:right;">
-NA
+0.637
 </td>
 </tr>
 <tr grouplength="2">
@@ -2008,7 +1418,7 @@ NA
 v01
 </td>
 <td style="text-align:right;">
-NA
+0.654
 </td>
 </tr>
 <tr>
@@ -2016,7 +1426,7 @@ NA
 elo
 </td>
 <td style="text-align:right;">
-NA
+0.665
 </td>
 </tr>
 <tr grouplength="3">
@@ -2029,7 +1439,7 @@ NA
 carm-elo
 </td>
 <td style="text-align:right;">
-NA
+0.668
 </td>
 </tr>
 <tr>
@@ -2037,7 +1447,7 @@ NA
 raptor
 </td>
 <td style="text-align:right;">
-NA
+0.671
 </td>
 </tr>
 <tr>
@@ -2045,7 +1455,7 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-NA
+0.650
 </td>
 </tr>
 </tbody>
