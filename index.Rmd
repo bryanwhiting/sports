@@ -35,6 +35,7 @@ css = paste0("background-color: ", dk_blue, "; color: #fff;")
 ```
 
 Each day I challenge [FiveThirtyEight's Raptor](https://projects.fivethirtyeight.com/2020-nba-predictions/games/) predictions[^1].
+Last updated `r as.POSIXlt(Sys.time(), "America/New_York", format="%Y-%m-%d %H:%M") `.
 
 [^1]:FiveThirtyEight's predictions are updated daily and can be downloaded here: https://projects.fivethirtyeight.com/nba-model/nba_elo_latest.csv.
 
