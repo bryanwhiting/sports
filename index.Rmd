@@ -129,8 +129,7 @@ df_today %>%
 ```
 
 ## Last Three Day's Predictions vs. Results
-
-The probabilities represent the home team's win probabilty. Result = 0 if the home team lost, 1 if it won.
+The home team win's probability is colored green if the model correctly predicted the home team winning.
 
 ```{r last3}
 # TODO: https://www.displayr.com/formattable/
@@ -208,7 +207,7 @@ for (mod in models){
     mod, mod_acc,
     color = 'white',
     fontWeight = 'bold',
-    backgroundColor = styleEqual(c(0, 1), c(red, green))
+    backgroundColor = styleEqual(c(0, 1), c('transparent', green))
   ) 
 }
 dt
