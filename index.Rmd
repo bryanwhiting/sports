@@ -129,7 +129,7 @@ df_today %>%
 ```
 
 ## Last Three Day's Predictions vs. Results
-The home team win's probability is colored green if the model correctly predicted the home team winning.
+The home team win's probability is colored green if the model correctly predicted the home team winning. hello
 
 ```{r last3}
 # TODO: https://www.displayr.com/formattable/
