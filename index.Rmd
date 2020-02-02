@@ -36,12 +36,11 @@ css = paste0("background-color: ", dk_blue, "; color: #fff;")
 
 Each day I challenge [FiveThirtyEight's Raptor](https://projects.fivethirtyeight.com/2020-nba-predictions/games/) predictions[^1].
 
-[^1]: FiveThirtyEight's predictions are updated daily and can be downloaded here: https://projects.fivethirtyeight.com/nba-model/nba_elo_latest.csv.
+[^1]:FiveThirtyEight's predictions are updated daily and can be downloaded here: https://projects.fivethirtyeight.com/nba-model/nba_elo_latest.csv.
 
 
 ## Today and Tomorrow's Games
-
-The probabilities represent the home team's win probability.
+Upcoming games for the home team's win probability. Blue represents an expected win for the home team (score > 50%) and orange/red represents an expected loss. `elo` is the FiveThirtyEight model and `V02` is my model.
 
 ```{r readin}
 
