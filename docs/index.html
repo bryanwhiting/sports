@@ -1358,20 +1358,143 @@
 </nav>
 <hr class="d-toc-separator"/>
 <blockquote>
-<p>Last updated Wed, Feb 05 06:21 AM</p>
+<p>Last updated Thu, Feb 06 06:23 AM</p>
 </blockquote>
 <p>Each morning I challenge <a href="https://projects.fivethirtyeight.com/2020-nba-predictions/games/">FiveThirtyEight’s Raptor</a> predictions<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and compare them against some super-simple benchmarks.</p>
 <h2 id="today-and-tomorrows-games">Today and Tomorrow’s Games</h2>
 <p>Upcoming games for the home team’s win probability. Blue represents an expected win for the home team (score &gt; 50%) and orange/red represents an expected loss. <code>elo</code> is the FiveThirtyEight model and <code>V02</code> is my model.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div id="htmlwidget-085604e3124693d3368a" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-085604e3124693d3368a">{"x":{"filter":"none","data":[["Wed, Feb 05","Wed, Feb 05","Wed, Feb 05","Wed, Feb 05","Wed, Feb 05","Wed, Feb 05","Wed, Feb 05","Wed, Feb 05","Wed, Feb 05","Thu, Feb 06","Thu, Feb 06","Thu, Feb 06","Thu, Feb 06","Thu, Feb 06"],["DET vs. PHO","BOS vs. ORL","BRK vs. GSW","TOR vs. IND","MIN vs. ATL","OKC vs. CLE","DAL vs. MEM","UTA vs. DEN","LAC vs. MIA","NYK vs. ORL","CHI vs. NOP","MIL vs. PHI","POR vs. SAS","LAL vs. HOU"],[0.57570941420539,0.817933858747861,0.719782205881146,0.793428987919954,0.671522960101876,0.923620739516899,0.723212390021181,0.636788837284017,0.625234897888353,0.469889270860602,0.467719633419178,0.82914218141957,0.645424241453479,0.695811852888234],[0.51259756,0.8502752,0.7202202,0.65066403,0.6475111,0.85644585,0.6978488,0.64606655,0.6472622,0.4999206,0.5794058,0.7115354,0.5481419,0.6681988]],"container":"<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th>DATE<\/th>\n      <th>GAME<\/th>\n      <th>ELO<\/th>\n      <th>V02<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'font-size': '10pt', 'background-color': '#0072B2', 'color': '#fff'});\n}","pageLength":100,"dom":"ft","rowsGroup":[0],"columnDefs":[{"className":"dt-center","targets":[0,1,2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 2, 0, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 3, 0, 3, \",\", \".\");\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'font-weight':'bold','color':'white','background-color':isNaN(parseFloat(value)) ? '' : value <= 0.4 ? \"#D55E00\" : value <= 0.5 ? \"#E69F00\" : value <= 0.6 ? \"#56B4E9\" : \"#0072B2\"});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'font-weight':'bold','color':'white','background-color':isNaN(parseFloat(value)) ? '' : value <= 0.4 ? \"#D55E00\" : value <= 0.5 ? \"#E69F00\" : value <= 0.6 ? \"#56B4E9\" : \"#0072B2\"});\n}"}},"evals":["options.initComplete","options.rowCallback"],"jsHooks":[]}</script>
+<div id="htmlwidget-6f787a3bab4f3f072d53" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6f787a3bab4f3f072d53">{"x":{"filter":"none","data":[["Thu, Feb 06","Thu, Feb 06","Thu, Feb 06","Thu, Feb 06","Thu, Feb 06","Fri, Feb 07","Fri, Feb 07","Fri, Feb 07","Fri, Feb 07","Fri, Feb 07","Fri, Feb 07","Fri, Feb 07","Fri, Feb 07"],["NYK vs. ORL","CHI vs. NOP","MIL vs. PHI","POR vs. SAS","LAL vs. HOU","PHI vs. MEM","WAS vs. DAL","BOS vs. ATL","IND vs. TOR","OKC vs. DET","PHO vs. HOU","SAC vs. MIA","UTA vs. POR"],[0.475965901250043,0.467719633419178,0.82914218141957,0.645424241453479,0.695811852888234,0.680725673646046,0.39744350430666,0.899506940702336,0.447537931857556,0.855121225197649,0.386534809761278,0.444662602119079,0.740591024189485],[0.45011327,0.5794058,0.7115354,0.5481419,0.6681988,0.57094,0.31181058,0.855509,0.44835982,0.81575453,0.54062873,0.3737191,0.74053675]],"container":"<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th>DATE<\/th>\n      <th>GAME<\/th>\n      <th>ELO<\/th>\n      <th>V02<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'font-size': '10pt', 'background-color': '#0072B2', 'color': '#fff'});\n}","pageLength":100,"dom":"ft","rowsGroup":[0],"columnDefs":[{"className":"dt-center","targets":[0,1,2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 2, 0, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 3, 0, 3, \",\", \".\");\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'font-weight':'bold','color':'white','background-color':isNaN(parseFloat(value)) ? '' : value <= 0.4 ? \"#D55E00\" : value <= 0.5 ? \"#E69F00\" : value <= 0.6 ? \"#56B4E9\" : \"#0072B2\"});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'font-weight':'bold','color':'white','background-color':isNaN(parseFloat(value)) ? '' : value <= 0.4 ? \"#D55E00\" : value <= 0.5 ? \"#E69F00\" : value <= 0.6 ? \"#56B4E9\" : \"#0072B2\"});\n}"}},"evals":["options.initComplete","options.rowCallback"],"jsHooks":[]}</script>
 </div>
 <h2 id="last-three-days-predictions-vs.-results">Last Three Day’s Predictions vs. Results</h2>
 <p>The home team win’s probability is colored green if the model correctly predicted the home team winning.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div id="htmlwidget-066f15806f9691dc8f2a" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-066f15806f9691dc8f2a">{"x":{"filter":"none","class":"cell-border stripe","data":[["Sun, Feb 02","Sun, Feb 02","Sun, Feb 02","Sun, Feb 02","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Tue, Feb 04","Tue, Feb 04","Tue, Feb 04","Tue, Feb 04"],["<font color=\"#009E73\"><strong>✓<\/strong><\/font>DET (128) | DEN (123) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>HOU (117) | NOP (109) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>MIL (129) | PHO (108) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>TOR (129) | CHI (102) "," CHO (100) | ORL (112)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," CLE (134) | NYK (139)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," IND (103) | DAL (112)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," WAS (117) | GSW (125)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," ATL (115) | BOS (123)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>BRK (119) | PHO (97) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>MIA (137) | PHI (106) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>MEM (96) | DET (82) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>SAC (113) | MIN (109) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>LAC (108) | SAS (105) "," NOP (108) | MIL (120)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>HOU (125) | CHO (110) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>DEN (127) | POR (99) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>LAL (129) | SAS (102) "],[0.316416475501979,0.741355512762872,0.899599506984628,0.905522274480624,0.491177826445056,0.54708396471456,0.634667841464717,0.686313526804815,0.26102858329583,0.616103869396296,0.652141067381175,0.775776428668072,0.737660035531127,0.716829418377678,0.334678697590273,0.888480661116128,0.729883841765427,0.777813281112065],[0.37566817,0.69502705,0.82276446,0.8478197,0.43532714,0.5127394,0.53461164,0.65317535,0.23453926,0.54142624,0.636477,0.66056556,0.6976038,0.7743101,0.38919914,0.8286704,0.7477143,0.83705175],[0,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1],[0,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1]],"container":"<table>\n  <thead>\n    <tr>\n      <th>Date<\/th>\n      <th>Game<\/th>\n      <th>Elo<\/th>\n      <th>V02<\/th>\n    <\/tr>\n  <\/thead>\n  <tfoot>\n    <tr>\n      <th><\/th>\n      <th>Total Correct<\/th>\n      <th>14<\/th>\n      <th>14<\/th>\n    <\/tr>\n  <\/tfoot>\n<\/table>","options":{"initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'font-size': '10pt', 'background-color': '#0072B2', 'color': '#fff'});\n}","pageLength":100,"dom":"ft","rowsGroup":[0],"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4]},{"targets":[4,5],"visible":false},{"className":"dt-right","targets":5}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 2, 0, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 3, 0, 3, \",\", \".\");\nvar value=data[4]; $(this.api().cell(row, 2).node()).css({'font-weight':'bold','color':'white','background-color':value == 0 ? \"#999999\" : value == 1 ? \"#009E73\" : value});\nvar value=data[5]; $(this.api().cell(row, 3).node()).css({'font-weight':'bold','color':'white','background-color':value == 0 ? \"#999999\" : value == 1 ? \"#009E73\" : value});\n}"}},"evals":["options.initComplete","options.rowCallback"],"jsHooks":[]}</script>
+<div id="htmlwidget-2f049169d7cf2b0dbf2c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2f049169d7cf2b0dbf2c">{"x":{"filter":"none","class":"cell-border stripe","data":[["Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Mon, Feb 03","Tue, Feb 04","Tue, Feb 04","Tue, Feb 04","Tue, Feb 04","Wed, Feb 05","Wed, Feb 05","Wed, Feb 05","Wed, Feb 05","Wed, Feb 05","Wed, Feb 05","Wed, Feb 05","Wed, Feb 05","Wed, Feb 05"],[" CHO (100) | ORL (112)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," CLE (134) | NYK (139)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," IND (103) | DAL (112)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," WAS (117) | GSW (125)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," ATL (115) | BOS (123)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>BRK (119) | PHO (97) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>MIA (137) | PHI (106) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>MEM (96) | DET (82) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>SAC (113) | MIN (109) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>LAC (108) | SAS (105) "," NOP (108) | MIL (120)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>HOU (125) | CHO (110) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>DEN (127) | POR (99) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>LAL (129) | SAS (102) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>DET (116) | PHO (108) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>BOS (116) | ORL (100) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>BRK (129) | GSW (88) ","<font color=\"#009E73\"><strong>✓<\/strong><\/font>TOR (119) | IND (118) "," MIN (120) | ATL (127)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>OKC (109) | CLE (103) "," DAL (107) | MEM (121)<font color=\"#009E73\"><strong>✓<\/strong><\/font>"," UTA (95) | DEN (98)<font color=\"#009E73\"><strong>✓<\/strong><\/font>","<font color=\"#009E73\"><strong>✓<\/strong><\/font>LAC (128) | MIA (111) "],[0.491177826445056,0.54708396471456,0.634667841464717,0.686313526804815,0.26102858329583,0.616103869396296,0.652141067381175,0.775776428668072,0.737660035531127,0.716829418377678,0.334678697590273,0.888480661116128,0.729883841765427,0.777813281112065,0.57570941420539,0.817933858747861,0.719782205881146,0.793428987919954,0.671522960101876,0.923620739516899,0.723212390021181,0.636788837284017,0.625234897888353],[0.43532714,0.5127394,0.53461164,0.65317535,0.23453926,0.54142624,0.636477,0.66056556,0.6976038,0.7743101,0.38919914,0.8286704,0.7477143,0.83705175,0.51259756,0.8502752,0.7202202,0.65066403,0.6475111,0.85644585,0.6978488,0.64606655,0.6472622],[1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,1],[1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,1]],"container":"<table>\n  <thead>\n    <tr>\n      <th>Date<\/th>\n      <th>Game<\/th>\n      <th>Elo<\/th>\n      <th>V02<\/th>\n    <\/tr>\n  <\/thead>\n  <tfoot>\n    <tr>\n      <th><\/th>\n      <th>Total Correct<\/th>\n      <th>17<\/th>\n      <th>17<\/th>\n    <\/tr>\n  <\/tfoot>\n<\/table>","options":{"initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'font-size': '10pt', 'background-color': '#0072B2', 'color': '#fff'});\n}","pageLength":100,"dom":"ft","rowsGroup":[0],"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4]},{"targets":[4,5],"visible":false},{"className":"dt-right","targets":5}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 2, 0, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 3, 0, 3, \",\", \".\");\nvar value=data[4]; $(this.api().cell(row, 2).node()).css({'font-weight':'bold','color':'white','background-color':value == 0 ? \"#999999\" : value == 1 ? \"#009E73\" : value});\nvar value=data[5]; $(this.api().cell(row, 3).node()).css({'font-weight':'bold','color':'white','background-color':value == 0 ? \"#999999\" : value == 1 ? \"#009E73\" : value});\n}"}},"evals":["options.initComplete","options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<h3 id="final-prediction">Final Prediction</h3>
+I estimate the team’s final record and compare that to FiveThirtyEight’s projections.
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>
+   [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+  [13] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+  [25] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+  [37] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+  [49] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+  [61] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+  [73] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+  [85] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+  [97] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [109] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [121] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [133] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [145] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [157] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [169] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [181] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [193] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [205] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [217] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [229] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [241] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [253] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [265] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [277] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [289] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [301] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [313] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [325] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [337] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [349] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [361] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [373] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [385] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [397] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [409] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [421] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [433] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [445] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [457] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [469] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [481] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [493] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [505] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [517] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [529] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [541] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [553] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [565] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [577] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [589] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [601] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [613] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [625] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [637] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [649] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [661] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [673] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [685] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [697] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [709] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [721] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [733] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [745] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ [757] TRUE TRUE TRUE TRUE TRUE TRUE   NA   NA   NA   NA   NA   NA
+ [769]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [781]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [793]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [805]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [817]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [829]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [841]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [853]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [865]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [877]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [889]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [901]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [913]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [925]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [937]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [949]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [961]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [973]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [985]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [997]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1009]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1021]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1033]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1045]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1057]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1069]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1081]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1093]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1105]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1117]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1129]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1141]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1153]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1165]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1177]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1189]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1201]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1213]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+[1225]   NA   NA   NA   NA   NA</code></pre>
+<pre><code>
+# A tibble: 30 x 5
+   team   wins losses n_games   pct
+   &lt;chr&gt; &lt;int&gt;  &lt;int&gt;   &lt;int&gt; &lt;dbl&gt;
+ 1 MIL      43      7      50    86
+ 2 LAL      38     11      49    78
+ 3 TOR      37     14      51    73
+ 4 LAC      36     15      51    71
+ 5 BOS      35     15      50    70
+ 6 DEN      36     16      52    69
+ 7 MIA      34     16      50    68
+ 8 HOU      32     18      50    64
+ 9 UTA      32     18      50    64
+10 DAL      31     20      51    61
+# … with 20 more rows</code></pre>
 </div>
 <h2 id="seasonal-model-accuracy">Seasonal Model Accuracy</h2>
 <p>This section compares how accurate my models are with FiveThirtyEight’s.</p>
@@ -1389,7 +1512,7 @@
 Win Rate
 </td>
 <td style="text-align:right;">
-0.554
+0.555
 </td>
 </tr>
 <tr>
@@ -1405,7 +1528,7 @@ Home %
 Home % &gt; Away %
 </td>
 <td style="text-align:right;">
-0.641
+0.642
 </td>
 </tr>
 <tr grouplength="2">
@@ -1455,7 +1578,7 @@ carm-elo
 raptor
 </td>
 <td style="text-align:right;">
-0.649
+0.647
 </td>
 </tr>
 </tbody>
