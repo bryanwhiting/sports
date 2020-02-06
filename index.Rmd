@@ -196,6 +196,7 @@ I estimate the team's final record and compare that to FiveThirtyEight's project
 ```{r}
 mod_accs = c()
 df_proj = df
+models = c('raptor', 'v02', 'carm-elo', 'elo')
 for (mod in models){
   res_mod = paste0(mod, '_result')
   pred = as.numeric(df[[mod]] > 0.5)
@@ -204,7 +205,11 @@ for (mod in models){
 df_proj$elo_result == df_proj$result
 
 # assert predictions are the same
+# https://projects.fivethirtyeight.com/2020-nba-predictions/
 res_name = 'elo_result'
+res_name = 'v02_result'
+res_name = 'raptor_result'
+res_name = 'carm-elo_result'
 res_name = 'result'
 df_proj %>%
   filter(!is.na(get(res_name))) %>%
@@ -226,7 +231,7 @@ df_proj %>%
   arrange(desc(pct))
 
 
-```
+  ```
 
 
 ## Seasonal Model Accuracy 
