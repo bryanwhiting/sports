@@ -1,4 +1,4 @@
-season_week,acc_pred_result_v01_prob1,acc_pred_result_v02_prob1,acc_pred_home_winpct,acc_pred_elo,acc_pred_carm-elo,acc_pred_raptor
+season_week,acc_pred_result_v01_prob1,acc_pred_result_v02_prob1,acc_pred_home_winpct,acc_pred_elo_prob1,acc_pred_carm-elo_prob1,acc_pred_raptor_prob1
 0,,,,,,
 1,0.5714285714285714,0.5714285714285714,0.42857142857142855,0.5428571428571428,0.5142857142857142,0.6
 2,0.5595238095238095,0.6190476190476191,0.5,0.5952380952380952,0.6190476190476191,0.6190476190476191

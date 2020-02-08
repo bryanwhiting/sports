@@ -34,8 +34,17 @@ orange = "#E69F00"
 
 css = paste0("background-color: ", dk_blue, "; color: #fff;")
 
-models = c('elo', 'v02')
+models = c('elo', 'result_v02')
 
+# Use this for team names
+df_name = read_csv(get_path('records.csv')) %>%
+  select(team, name, record_result) %>%
+  mutate(team1 = team,
+         team2 = team,
+         name1 = paste(name, record_result),
+         name2 = paste(name, record_result)) %>%
+  select(-record_result)
+           
 ```
 > Last updated `r format(now("EST"), '%a, %b %d %I:%M %p')`
 
@@ -54,10 +63,16 @@ df = read_csv(get_path('all_scores.csv')) %>%
   # ignore datetime - time zones mess things up anyway
   mutate(date = as_date(datetime)) %>%
   select(-datetime) %>%
-  select(date, everything())
+  select(date, everything()) %>%
+  # Replace team names
+  left_join(df_name %>% select(team1, name1), on='team1') %>%
+  mutate(team1 = name1) %>% select(-name1) %>%
+  left_join(df_name %>% select(team2, name2), on='team2') %>%
+  mutate(team2 = name2) %>% select(-name2)
+  
 
 colnames(df) %<>% gsub('[.]*\\_prob1', '', .)
-colnames(df) %<>% gsub('result\\_[.]*', '', .)
+# colnames(df) %<>% gsub('result\\_[.]*', '', .)
 
 # Today's games
 df_today = df %>% 
@@ -111,7 +126,6 @@ rowGroupDep <- htmltools::htmlDependency(
       src='www', script = "dataTables.rowsGroup.js")
 dt$dependencies = c(dt$dependencies, list(rowGroupDep))
 
-
 dt
   
 ```
@@ -147,7 +161,7 @@ for (mod in models){
 
 total_sums = df_yesterday %>% select(!!mod_accs) %>% apply(2, sum)
 sketch = htmltools::withTags(table(
-  tableHeader(c('Date', 'Game', 'Elo', 'V02')),
+  tableHeader(toupper(c('Date', 'Game', 'Elo', 'RESULT_V02'))),
   tableFooter(c('', 'Total Correct', total_sums))
 ))
 
@@ -194,44 +208,40 @@ dt
 ### Final Prediction
 I estimate the team's final record and compare that to FiveThirtyEight's projections.
 ```{r}
-mod_accs = c()
-df_proj = df
-models = c('raptor', 'v02', 'carm-elo', 'elo')
-for (mod in models){
-  res_mod = paste0(mod, '_result')
-  pred = as.numeric(df[[mod]] > 0.5)
-  df_proj[[res_mod]] = ifelse(is.na(df$result), pred, df$result)
-}
-df_proj$elo_result == df_proj$result
+df_rec = read_csv(get_path('records.csv'))
+# Keep only the modeled + 538
+mod = 'v02'
+keep_names = names(df_rec)[str_detect(names(df_rec), mod)]
+df_rec = df_rec %>%
+  select(name, record_result, record_proj_538_raptor, !!keep_names) %>%
+  arrange(desc(record_result))
 
-# assert predictions are the same
-# https://projects.fivethirtyeight.com/2020-nba-predictions/
-res_name = 'elo_result'
-res_name = 'v02_result'
-res_name = 'raptor_result'
-res_name = 'carm-elo_result'
-res_name = 'result'
-df_proj %>%
-  filter(!is.na(get(res_name))) %>%
-  mutate(
-    result1 = get(res_name),
-    result2 = ifelse(get(res_name) == 1, 0, 1)
-    ) %>%
-  select(team1, team2, result1, result2) %>%
-  # reshape long to be team | result
-  gather('team', 'result', -team1, -team2) %>%
-  mutate(team = ifelse(team == 'result1', team1, team2)) %>%
-  select(-team1, -team2) %>%
-  # Count wins and losses
-  group_by(team) %>%
-  summarize(wins = sum(result == 1),
-            losses = sum(result == 0),
-            n_games = wins + losses) %>%
-  mutate(pct = round(wins/(wins + losses), 2) * 100) %>%
-  arrange(desc(pct))
+sketch = htmltools::withTags(table(
+  tableHeader(toupper(c('team', 'Current Record', '538 Proj', 'V02 Proj')))
+))
 
+df_rec %>% 
+ datatable(style='default',
+            escape=F,
+            container=sketch,
+            class = 'cell-border stripe',
+            rownames=F,
+            colnames = str_to_upper(colnames(.)),
+            options = 
+              list(
+                # Header formatting
+                initComplete = head_format,
+                pageLength=100,
+                dom = 'ft',
+                columnDefs = list(
+                  list(
+                    className = 'dt-center', targets= 0:3
+                  ))
+              ))
+  
+  
 
-  ```
+```
 
 
 ## Seasonal Model Accuracy 
