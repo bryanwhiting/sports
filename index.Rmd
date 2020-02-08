@@ -46,15 +46,13 @@ df_name = read_csv(get_path('records.csv')) %>%
   select(-record_result)
            
 ```
-> Last updated `r format(now("EST"), '%a, %b %d %I:%M %p')`
 
-Each morning I challenge [FiveThirtyEight's Raptor](https://projects.fivethirtyeight.com/2020-nba-predictions/games/) predictions[^1] and compare them against some super-simple benchmarks.
-
+Each morning I challenge [FiveThirtyEight's Raptor](https://projects.fivethirtyeight.com/2020-nba-predictions/games/) predictions[^1] and compare them against some super-simple benchmarks. **Updated `r format(now("EST"), '%a, %b %d %I:%M %p')`**.
 
 [^1]:FiveThirtyEight's predictions are updated daily and can be downloaded here: https://projects.fivethirtyeight.com/nba-model/nba_elo_latest.csv.
 
 
-## Today and Tomorrow's Games
+## Upcoming Games
 Upcoming games for the home team's win probability. Blue represents an expected win for the home team (score > 50%) and orange/red represents an expected loss. `elo` is the FiveThirtyEight model and `V02` is my model.
 
 ```{r readin}
@@ -159,10 +157,14 @@ for (mod in models){
   mod_accs = c(mod_accs, mod_acc)
 }
 
+n_games = nrow(df_yesterday)
+total_games = paste0('Total Correct (out of', n_games, ')')
+
 total_sums = df_yesterday %>% select(!!mod_accs) %>% apply(2, sum)
+total_pct = paste0(total_sums, ' (', round(total_sums/n_games *100), '%)')
 sketch = htmltools::withTags(table(
   tableHeader(toupper(c('Date', 'Game', 'Elo', 'RESULT_V02'))),
-  tableFooter(c('', 'Total Correct', total_sums))
+  tableFooter(c('', total_games, total_pct))
 ))
 
 dt <- df_yesterday %>%
@@ -205,9 +207,11 @@ dt$dependencies = c(dt$dependencies, list(rowGroupDep))
 dt
 ```
 
-### Final Prediction
+## Projected Record
+
 I estimate the team's final record and compare that to FiveThirtyEight's projections.
-```{r}
+
+```{r records}
 df_rec = read_csv(get_path('records.csv'))
 # Keep only the modeled + 538
 mod = 'v02'
