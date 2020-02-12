@@ -144,7 +144,11 @@ df_yesterday = df %>%
   mutate(
     indicator1 = ifelse(pg_score1 > pg_score2, check, ' '),
     indicator2 = ifelse(pg_score1 > pg_score2, ' ', check),
-    game = paste0(indicator1, team1, ' (', pg_score1, ') | ', team2, ' (', pg_score2, ')', indicator2),
+    # pg_score_1 = ifelse(pg_score1 > pg_score1,
+    #                    paste0('<span stype="color:', black, '">', pg_score1, '</span>'), pg_score1),
+    game = paste0(indicator1, team1, 
+                  ' (', pg_score1, ') | ', team2, ' (', pg_score2, ')', indicator2,
+                  "<br>", rec1, '&nbsp;&nbsp;&nbsp;', rec2),
     date = format(date, format='%a, %b %d')
          ) %>%
   select(-team1, -team2, -starts_with('pg'), -season_week, -starts_with('indi')) %>%
