@@ -41,8 +41,12 @@ df_name = read_csv(get_path('records.csv')) %>%
   select(team, name, record_result) %>%
   mutate(team1 = team,
          team2 = team,
-         name1 = paste(name, record_result),
-         name2 = paste(name, record_result)) %>%
+         name1 = paste0('<span style="font-weight:bold;color:', dk_blue, '">', name, '</span>'),
+         rec1 = paste0('<span style="color:', gray, '">', record_result, '</span>'),
+         rec2 = paste0('<span style="color:', gray, '">', record_result, '</span>'),
+         name2 = paste0('<span style="font-weight:bold;color:', dk_blue, '">', name, '</span>')) %>%
+         #name1 = paste(span(name, color=blue, `font-weight`=bold), record_result),
+         #name2 = paste(name, record_result)) %>%
   select(-record_result)
            
 ```
@@ -63,9 +67,9 @@ df = read_csv(get_path('all_scores.csv')) %>%
   select(-datetime) %>%
   select(date, everything()) %>%
   # Replace team names
-  left_join(df_name %>% select(team1, name1), on='team1') %>%
+  left_join(df_name %>% select(team1, name1, rec1), on='team1') %>%
   mutate(team1 = name1) %>% select(-name1) %>%
-  left_join(df_name %>% select(team2, name2), on='team2') %>%
+  left_join(df_name %>% select(team2, name2, rec2), on='team2') %>%
   mutate(team2 = name2) %>% select(-name2)
   
 
@@ -76,7 +80,7 @@ colnames(df) %<>% gsub('[.]*\\_prob1', '', .)
 df_today = df %>% 
   filter(between(date, Sys.Date(), Sys.Date() + 1)) %>%
   select(-result, -starts_with('pg'), -season_week) %>%
-  mutate(game = paste0(team1, ' vs. ', team2),
+  mutate(game = paste0(team1, ' vs. ', team2, "<br>", rec1, '&nbsp;&nbsp;&nbsp;', rec2),
          date = format(date, format='%a, %b %d')) %>%
   select(date, game, !!models)
  
@@ -89,7 +93,7 @@ head_format = JS(
     "}")
 
 dt <- df_today %>%
-  datatable(style='default',
+  datatable(#style='default',
             escape=F,
             #container=sketch,
             class = 'cell-border stripe',
@@ -163,7 +167,7 @@ total_games = paste0('Total Correct (out of', n_games, ')')
 total_sums = df_yesterday %>% select(!!mod_accs) %>% apply(2, sum)
 total_pct = paste0(total_sums, ' (', round(total_sums/n_games *100), '%)')
 sketch = htmltools::withTags(table(
-  tableHeader(toupper(c('Date', 'Game', 'Elo', 'RESULT_V02'))),
+  tableHeader(toupper(c('Date', 'Game', 'Elo', 'V02'))),
   tableFooter(c('', total_games, total_pct))
 ))
 
