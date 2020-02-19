@@ -76,13 +76,18 @@ df = read_csv(get_path('all_scores.csv')) %>%
 colnames(df) %<>% gsub('[.]*\\_prob1', '', .)
 # colnames(df) %<>% gsub('result\\_[.]*', '', .)
 
+
+# Get dates 2 days after, 3 days before. Sometimes there might not be games for a day.
+next_2_days <- df %>% select(date) %>% filter(date >= Sys.Date()) %>% unique() %>% arrange() %>% head(2) %>% pull()
+past_3_days <- df %>% select(date) %>% filter(date < Sys.Date()) %>% unique() %>% arrange(desc(date)) %>% head(3) %>% pull() 
 # Today's games
 df_today = df %>% 
-  filter(between(date, Sys.Date(), Sys.Date() + 1)) %>%
+  filter(date %in% next_2_days) %>%
   select(-result, -starts_with('pg'), -season_week) %>%
   mutate(game = paste0(team1, ' vs. ', team2, "<br>", rec1, '&nbsp;&nbsp;&nbsp;', rec2),
-         date = format(date, format='%a, %b %d')) %>%
-  select(date, game, !!models)
+         date = format(date, format='%m/%d, %a')) %>%
+  select(date, game, !!models) %>% 
+  arrange(date)
  
 
 # Header formatting:
@@ -140,7 +145,7 @@ The home team win's probability is colored green if the model correctly predicte
 # Yesterday's Games
 check = paste0('<font color="', green,'"><strong>✓</strong></font>')
 df_yesterday = df %>% 
-  filter(between(date, Sys.Date() -3, Sys.Date() - 1)) %>%
+  filter(date %in% past_3_days) %>%
   mutate(
     indicator1 = ifelse(pg_score1 > pg_score2, check, ' '),
     indicator2 = ifelse(pg_score1 > pg_score2, ' ', check),
@@ -149,10 +154,11 @@ df_yesterday = df %>%
     game = paste0(indicator1, team1, 
                   ' (', pg_score1, ') | ', team2, ' (', pg_score2, ')', indicator2,
                   "<br>", rec1, '&nbsp;&nbsp;&nbsp;', rec2),
-    date = format(date, format='%a, %b %d')
+    date = format(date, format='%m/%d, %a')
          ) %>%
   select(-team1, -team2, -starts_with('pg'), -season_week, -starts_with('indi')) %>%
-  select(date, game, everything())
+  select(date, game, everything()) %>%
+  arrange(desc(date))
 
 
 # https://rstudio.github.io/DT/010-style.html
